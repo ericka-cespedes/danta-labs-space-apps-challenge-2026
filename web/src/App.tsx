@@ -172,13 +172,14 @@ function App() {
         >
           <div className="hero">
             <h1 id="project-title">
-              Abandoned but
+              Artifacts
               <br />
-              Not Forgotten
+              of the Past
             </h1>
             <p className="hero__intro">
               A tabletop experience connecting physical play with the stories,
-              discoveries, and legacy of space exploration equipment.
+              discoveries, and legacy of space exploration equipment, created
+              for the Abandoned and Not Forgotten challenge.
             </p>
             <div className="hero__actions">
               <a className="action-pill action-pill--primary" href="#play">
@@ -283,7 +284,7 @@ function App() {
           </svg>
           <span>Danta Labs</span>
         </a>
-        <p>Abandoned but Not Forgotten · Project in progress</p>
+        <p>Artifacts of the Past · Project in progress</p>
         <a className="back-to-top" href="#top">
           Back to the start
         </a>

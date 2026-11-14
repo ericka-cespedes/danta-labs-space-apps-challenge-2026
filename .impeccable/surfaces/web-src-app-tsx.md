@@ -10,7 +10,7 @@ related_targets: []
 - Mode: Read.
 - Audience: Young space enthusiasts aged 10 and older; NASA Space Apps judges.
 - Job: Explain Danta Labs' tabletop science-storytelling concept, give a concise gameplay preview, introduce the team, and help judges understand the project.
-- Content: Project title “Abandoned but Not Forgotten”; Moon, Mars, and deep space; project status; the team members listed in README.md.
+- Content: Game title “Artifacts of the Past”; challenge name “Abandoned and Not Forgotten”; Moon, Mars, and deep space; project status; the team members listed in README.md.
 - Constraints: Keep all gameplay mechanics explicitly marked as in development; do not invent rules, player counts, turns, or win conditions. Build on the existing React, TypeScript, Vite, and Tailwind app. Use no paid APIs, hosted assets, or required paid services. Keep the page responsive, accessible, and fast.
 - Scope: One homepage with clear sections for the project, a gameplay concept preview, and team. No other routes or page implementation.
 
