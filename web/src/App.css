@@ -252,8 +252,11 @@ h2 {
 .hero h1 {
   max-width: 11ch;
   margin-bottom: 1.4rem;
+  font-family: 'Megrim', 'Gabarito Variable', sans-serif;
   font-size: clamp(3.8rem, 8.6vw, 6rem);
-  line-height: 0.95;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1;
 }
 
 .hero__intro {

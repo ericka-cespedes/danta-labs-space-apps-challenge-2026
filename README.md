@@ -14,7 +14,7 @@ Our game, **Artifacts of the Past**, is being developed during the hackathon as 
 
 ### The Challenge
 
-We are participating in [Abandoned and Not Forgotten](https://www.spaceappschallenge.org/2026/challenges/abandoned-but-not-forgotten-storytelling-about-nasas-discarded-equipment-on-the-moon-and-mars/). The challenge explores NASA equipment across the solar system, from the Moon and Mars to deep space, highlighting the scientific discoveries and lasting legacy of space exploration. This includes rovers, landers, scientific instruments, and spacecraft; some have completed their original missions, while others continue operating or traveling.
+We are participating in [Abandoned and Not Forgotten](https://www.spaceappschallenge.org/2026/challenges/nasas-discarded-equipment-storytelling/). The challenge explores NASA equipment across the solar system, from the Moon and Mars to deep space, highlighting the scientific discoveries and lasting legacy of space exploration. This includes rovers, landers, scientific instruments, and spacecraft; some have completed their original missions, while others continue operating or traveling.
 
 ### Our Vision
 
