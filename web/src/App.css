@@ -135,6 +135,7 @@ main,
 .site-footer,
 .section-nav,
 .pending-page,
+.contact-page,
 .project-section,
 .play-section,
 .team-section {
@@ -197,6 +198,85 @@ main,
   max-width: 65ch;
   font-size: 1.15rem;
   line-height: 1.5;
+}
+
+.contact-page {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  min-height: 65svh;
+  padding-block: clamp(4rem, 10vh, 7rem);
+}
+
+.contact-page h1 {
+  margin-bottom: 1.5rem;
+  font-size: clamp(3rem, 6vw, 4.8rem);
+  line-height: 1;
+}
+
+.contact-page__intro p {
+  max-width: 55ch;
+  font-size: 1.15rem;
+  line-height: 1.5;
+}
+
+.contact-page__notice {
+  border-left: 3px solid var(--gold);
+  padding: 0.75rem 1rem;
+  background: var(--deep);
+}
+
+.contact-page__intro .contact-page__placeholder {
+  font-size: 0.95rem;
+  overflow-wrap: anywhere;
+}
+
+.contact-form {
+  border: 1px solid rgb(242 236 250 / 35%);
+  border-radius: 1.75rem;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  background: rgb(12 9 24 / 75%);
+}
+
+.contact-form fieldset {
+  display: grid;
+  gap: 0.6rem;
+  min-width: 0;
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+.contact-form legend {
+  padding: 0;
+  font-size: 1.5rem;
+}
+
+.contact-form p {
+  margin: 0 0 0.5rem;
+  line-height: 1.5;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  margin-bottom: 0.5rem;
+  border: 1px solid rgb(242 236 250 / 45%);
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  color: var(--paper);
+  background: var(--deep);
+  font: inherit;
+}
+
+.contact-form button {
+  justify-self: start;
+  font: inherit;
+}
+
+.contact-form :disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
 }
 
 .route-link {
@@ -573,6 +653,7 @@ h2 {
   .site-footer,
   .section-nav,
   .pending-page,
+  .contact-page,
   .project-section,
   .play-section,
   .team-section {
@@ -602,6 +683,10 @@ h2 {
   .hero {
     min-height: min(42rem, calc(100svh - 9rem));
     padding-block: 4rem 3rem;
+  }
+
+  .contact-page {
+    grid-template-columns: 1fr;
   }
 
   .hero h1 {
