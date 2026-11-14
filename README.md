@@ -44,12 +44,12 @@ Made with curiosity, creativity, and a little pura vida 🇨🇷
 This repository includes framework-neutral Copilot skills and supporting agents.
 They do not require a database, API, P&G design system, or deployment workflows.
 
-1. Create a GitHub issue describing the webpage, its scope, and acceptance criteria.
+1. Create a GitHub issue describing the webpage, its scope, and acceptance criteria. For a parent issue with scoped sub-issues, optionally run `/danta-labs-issue-orchestrator <idea-or-parent-issue-url>` first. It proposes the hierarchy and asks for approval before making issue changes; no custom issue types or GitHub Project are required.
 2. In a Copilot environment with a checkout of this repository and authenticated GitHub access, run `/issue-planner <issue-number-or-url>`.
 3. Review the generated plan and work items under `docs-local/`, then run `/orchestrator docs-local/issue-<number>-pbis.md`.
 4. Review implementation and QA results. The `testing-plan` agent produces manual cases marked `NOT RUN`; the optional `automated-testing` agent can execute them when a running application and Playwright tools are available.
 5. Run `/open-pr <issue-number-or-url>` to validate the changes and open an issue-linked feature PR against `main`. This does not merge or deploy the PR.
 
-Definitions: [issue-planner](.github/skills/issue-planner/SKILL.md), [orchestrator](.github/skills/orchestrator/SKILL.md), [open-pr](.github/skills/open-pr/SKILL.md), and [supporting agents](.github/agents/).
+Definitions: [danta-labs-issue-orchestrator](.github/skills/danta-labs-issue-orchestrator/SKILL.md), [issue-planner](.github/skills/issue-planner/SKILL.md), [orchestrator](.github/skills/orchestrator/SKILL.md), [open-pr](.github/skills/open-pr/SKILL.md), and [supporting agents](.github/agents/).
 
 `docs-local/` is ignored by Git: plans, internal work-item identifiers, and manual execution records remain local. The implementation agent follows the framework and tooling actually chosen for the webpage rather than assuming a particular stack.
