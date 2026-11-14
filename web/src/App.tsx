@@ -1,19 +1,28 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { Link, NavLink, Route, Routes, useLocation } from 'react-router'
 import './App.css'
 
 type RouteId = 'project' | 'play' | 'team'
 
-const routes: { id: RouteId; label: string }[] = [
+const sectionRoutes: { id: RouteId; label: string }[] = [
   { id: 'project', label: 'The Project' },
   { id: 'play', label: 'Gameplay Preview' },
   { id: 'team', label: 'The Team' },
+]
+
+const pages = [
+  { path: '/', label: 'Home' },
+  { path: '/game', label: 'How to Play' },
+  { path: '/artifacts', label: 'Artifacts' },
+  { path: '/about', label: 'About Us' },
+  { path: '/contact', label: 'Contact' },
 ]
 
 function useActiveRoute() {
   const [activeRoute, setActiveRoute] = useState<RouteId>('project')
 
   useEffect(() => {
-    const sections = routes
+    const sections = sectionRoutes
       .map(({ id }) => document.getElementById(id))
       .filter((section): section is HTMLElement => section !== null)
     let animationFrame = 0
@@ -38,7 +47,7 @@ function useActiveRoute() {
       if (closestIndex === activeIndex) return
 
       activeIndex = closestIndex
-      setActiveRoute(routes[closestIndex].id)
+      setActiveRoute(sectionRoutes[closestIndex].id)
     }
 
     const scheduleMapUpdate = () => {
@@ -61,7 +70,7 @@ function useActiveRoute() {
   return activeRoute
 }
 
-function useNebulaParallax() {
+function useNebulaParallax(pathname: string) {
   useEffect(() => {
     const root = document.documentElement
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -117,12 +126,171 @@ function useNebulaParallax() {
       window.cancelAnimationFrame(animationFrame)
       clearPosition()
     }
-  }, [])
+  }, [pathname])
+}
+
+function HomePage() {
+  const activeRoute = useActiveRoute()
+
+  return (
+    <>
+      <nav aria-label="Home Sections" className="route-nav section-nav">
+        {sectionRoutes.map(({ id, label }) => (
+          <a
+            aria-current={activeRoute === id ? 'location' : undefined}
+            className={`route-link route-link--${id}${activeRoute === id ? ' is-active' : ''}`}
+            href={`#${id}`}
+            key={id}
+          >
+            <span className="route-link__chip" aria-hidden="true" />
+            {label}
+          </a>
+        ))}
+      </nav>
+      <section
+        aria-labelledby="project-title"
+        className="project-section"
+        data-map-stage
+        id="project"
+      >
+        <div className="hero">
+          <h1 id="project-title">
+            Artifacts
+            <br />
+            of the Past
+          </h1>
+          <p className="hero__intro">
+            A tabletop experience connecting physical play with the stories,
+            discoveries, and legacy of space exploration equipment, created
+            for the Abandoned and Not Forgotten challenge.
+          </p>
+          <div className="hero__actions">
+            <a className="action-pill action-pill--primary" href="#play">
+              See the Gameplay Preview
+            </a>
+            <a className="action-link" href="#team">
+              Meet the Team
+            </a>
+          </div>
+        </div>
+
+        <div className="project-story">
+          <div className="project-story__lead">
+            <h2>Space Equipment Has Stories Beyond Its Mission.</h2>
+            <p>
+              Danta Labs is creating a tabletop experience for young space
+              enthusiasts to connect with the discoveries and continuing
+              legacy of exploration equipment.
+            </p>
+          </div>
+
+          <div className="project-story__detail">
+            <p>
+              The focus is scientific storytelling—not simply objects left
+              behind. The experience explores stories from the Moon, Mars,
+              and deep space.
+            </p>
+            <ul aria-label="Exploration Settings" className="destination-list">
+              <li className="destination destination--moon">Moon</li>
+              <li className="destination destination--mars">Mars</li>
+              <li className="destination destination--deep-space">Deep Space</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section
+        aria-labelledby="play-title"
+        className="play-section"
+        data-map-stage
+        id="play"
+      >
+        <div className="section-heading">
+          <h2 id="play-title">How to Play</h2>
+          <span className="status-pill status-pill--preview">
+            Rules in Development
+          </span>
+        </div>
+        <div className="play-section__body">
+          <p className="play-section__lead">
+            The tabletop concept is taking shape, but the rules are not final
+            yet.
+          </p>
+          <p>
+            We’ll add the confirmed setup, play sequence, and goal when the
+            team has decided them. For now, this is a preview of the project,
+            not a set of instructions.
+          </p>
+        </div>
+        <p className="play-section__note">
+          What is confirmed: physical play will connect with stories about
+          space exploration equipment and its scientific legacy.
+        </p>
+      </section>
+
+      <section
+        aria-labelledby="team-title"
+        className="team-section"
+        data-map-stage
+        id="team"
+      >
+        <div className="team-section__intro">
+          <h2 id="team-title">Meet Danta Labs</h2>
+          <p>
+            A six-member team from Costa Rica, building for the NASA Space
+            Apps Challenge 2026.
+          </p>
+        </div>
+        <ul className="team-list">
+          <li>
+            <span>Celeste Alpizar</span>
+            <span className="team-list__role">Team Leader</span>
+          </li>
+          <li><span>Ericka Cespedes</span></li>
+          <li><span>Jorge Sobalvarro</span></li>
+          <li><span>Luis Chaverri</span></li>
+          <li><span>Pedro Santana</span></li>
+          <li><span>Sally Sanchez</span></li>
+        </ul>
+      </section>
+    </>
+  )
+}
+
+function PendingPage({ title }: { title: string }) {
+  return (
+    <section className="pending-page" aria-labelledby="page-title">
+      <h1 id="page-title">{title}</h1>
+      <p>This page is in development.</p>
+      <Link className="action-link" to="/">Return to the Home Page</Link>
+    </section>
+  )
 }
 
 function App() {
-  const activeRoute = useActiveRoute()
-  useNebulaParallax()
+  const { pathname } = useLocation()
+  const isHome = pathname === '/'
+  const previousPath = useRef(pathname)
+  useNebulaParallax(pathname)
+
+  useEffect(() => {
+    const page = pages.find(({ path }) => path === pathname)
+    document.title = page && pathname !== '/'
+      ? `${page.label} | Danta Labs`
+      : pathname === '/'
+        ? 'Danta Labs — Artifacts of the Past'
+        : 'Page Not Found | Danta Labs'
+
+    if (previousPath.current !== pathname && !window.location.hash) {
+      window.scrollTo({ top: 0, behavior: 'instant' })
+      document.getElementById('main')?.focus({ preventScroll: true })
+    }
+    previousPath.current = pathname
+  }, [pathname])
+
+  const returnHome = () => {
+    if (isHome) window.scrollTo({ top: 0, behavior: 'auto' })
+  }
 
   return (
     <div className="site-shell" id="top">
@@ -132,148 +300,50 @@ function App() {
       </a>
 
       <header className="site-header">
-        <a aria-label="Danta Labs home" className="brand" href="#top">
+        <Link aria-label="Danta Labs home" className="brand" onClick={returnHome} to="/">
           <img
             alt=""
             className="brand__mark"
             src={`${import.meta.env.BASE_URL}favicon-64.png?v=2`}
           />
           <span>Danta Labs</span>
-        </a>
+        </Link>
 
-        <nav aria-label="Page Sections" className="route-nav">
-          {routes.map(({ id, label }) => (
-            <a
-              aria-current={activeRoute === id ? 'location' : undefined}
-              className={`route-link route-link--${id}${activeRoute === id ? ' is-active' : ''}`}
-              href={`#${id}`}
-              key={id}
+        <nav aria-label="Main Navigation" className="route-nav page-nav">
+          {pages.map(({ path, label }) => (
+            <NavLink
+              className={({ isActive }) => `route-link${isActive ? ' is-active' : ''}`}
+              end={path === '/'}
+              key={path}
+              onClick={path === '/' ? returnHome : undefined}
+              to={path}
             >
-              <span className="route-link__chip" aria-hidden="true" />
               {label}
-            </a>
+            </NavLink>
           ))}
         </nav>
       </header>
 
-      <main id="main">
-        <section
-          aria-labelledby="project-title"
-          className="project-section"
-          data-map-stage
-          id="project"
-        >
-          <div className="hero">
-            <h1 id="project-title">
-              Artifacts
-              <br />
-              of the Past
-            </h1>
-            <p className="hero__intro">
-              A tabletop experience connecting physical play with the stories,
-              discoveries, and legacy of space exploration equipment, created
-              for the Abandoned and Not Forgotten challenge.
-            </p>
-            <div className="hero__actions">
-              <a className="action-pill action-pill--primary" href="#play">
-                See the Gameplay Preview
-              </a>
-              <a className="action-link" href="#team">
-                Meet the Team
-              </a>
-            </div>
-          </div>
-
-          <div className="project-story">
-            <div className="project-story__lead">
-              <h2>Space Equipment Has Stories Beyond Its Mission.</h2>
-              <p>
-                Danta Labs is creating a tabletop experience for young space
-                enthusiasts to connect with the discoveries and continuing
-                legacy of exploration equipment.
-              </p>
-            </div>
-
-            <div className="project-story__detail">
-              <p>
-                The focus is scientific storytelling—not simply objects left
-                behind. The experience explores stories from the Moon, Mars,
-                and deep space.
-              </p>
-              <ul aria-label="Exploration Settings" className="destination-list">
-                <li className="destination destination--moon">Moon</li>
-                <li className="destination destination--mars">Mars</li>
-                <li className="destination destination--deep-space">Deep Space</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        <section
-          aria-labelledby="play-title"
-          className="play-section"
-          data-map-stage
-          id="play"
-        >
-          <div className="section-heading">
-            <h2 id="play-title">How to Play</h2>
-            <span className="status-pill status-pill--preview">
-              Rules in Development
-            </span>
-          </div>
-          <div className="play-section__body">
-            <p className="play-section__lead">
-              The tabletop concept is taking shape, but the rules are not final
-              yet.
-            </p>
-            <p>
-              We’ll add the confirmed setup, play sequence, and goal when the
-              team has decided them. For now, this is a preview of the project,
-              not a set of instructions.
-            </p>
-          </div>
-          <p className="play-section__note">
-            What is confirmed: physical play will connect with stories about
-            space exploration equipment and its scientific legacy.
-          </p>
-        </section>
-
-        <section
-          aria-labelledby="team-title"
-          className="team-section"
-          data-map-stage
-          id="team"
-        >
-          <div className="team-section__intro">
-            <h2 id="team-title">Meet Danta Labs</h2>
-            <p>
-              A six-member team from Costa Rica, building for the NASA Space
-              Apps Challenge 2026.
-            </p>
-          </div>
-          <ul className="team-list">
-            <li>
-              <span>Celeste Alpizar</span>
-              <span className="team-list__role">Team Leader</span>
-            </li>
-            <li><span>Ericka Cespedes</span></li>
-            <li><span>Jorge Sobalvarro</span></li>
-            <li><span>Luis Chaverri</span></li>
-            <li><span>Pedro Santana</span></li>
-            <li><span>Sally Sanchez</span></li>
-          </ul>
-        </section>
+      <main className={isHome ? 'home-page' : undefined} id="main" tabIndex={-1}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/game" element={<PendingPage title="How to Play" />} />
+          <Route path="/artifacts" element={<PendingPage title="Artifacts" />} />
+          <Route path="/about" element={<PendingPage title="About Us" />} />
+          <Route path="/contact" element={<PendingPage title="Contact" />} />
+          <Route path="*" element={<PendingPage title="Page Not Found" />} />
+        </Routes>
       </main>
 
       <footer className="site-footer">
-        <a className="brand brand--footer" href="#top">
+        <Link className="brand brand--footer" onClick={returnHome} to="/">
           <img
             alt=""
             className="brand__mark"
             src={`${import.meta.env.BASE_URL}favicon-64.png?v=2`}
           />
           <span>Danta Labs</span>
-        </a>
+        </Link>
         <p>Artifacts of the Past · Project in Progress</p>
         <a className="back-to-top" href="#top">
           Back to the Start
