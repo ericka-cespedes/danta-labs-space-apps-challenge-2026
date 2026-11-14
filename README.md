@@ -10,11 +10,11 @@
 
 Danta Labs is a six-member team from Costa Rica taking part in the [NASA Space Apps Challenge 2026](https://www.spaceappschallenge.org/). Our name comes from the danta (tapir), an animal native to Costa Rica, and reflects our connection to nature, science, space exploration, and creativity.
 
-Our working project title is **Abandoned but Not Forgotten**. The project is being developed during the hackathon as a tabletop experience that connects physical play with stories about space exploration equipment.
+Our game, **Artifacts of the Past**, is being developed during the hackathon as a tabletop experience that connects physical play with stories about space exploration equipment.
 
 ### The Challenge
 
-We are participating in [Abandoned but Not Forgotten: Storytelling about NASA's Discarded Equipment on the Moon and Mars](https://www.spaceappschallenge.org/2026/challenges/abandoned-but-not-forgotten-storytelling-about-nasas-discarded-equipment-on-the-moon-and-mars/). The challenge explores NASA equipment across the solar system, from the Moon and Mars to deep space, highlighting the scientific discoveries and lasting legacy of space exploration. This includes rovers, landers, scientific instruments, and spacecraft; some have completed their original missions, while others continue operating or traveling.
+We are participating in [Abandoned and Not Forgotten](https://www.spaceappschallenge.org/2026/challenges/abandoned-but-not-forgotten-storytelling-about-nasas-discarded-equipment-on-the-moon-and-mars/). The challenge explores NASA equipment across the solar system, from the Moon and Mars to deep space, highlighting the scientific discoveries and lasting legacy of space exploration. This includes rovers, landers, scientific instruments, and spacecraft; some have completed their original missions, while others continue operating or traveling.
 
 ### Our Vision
 
