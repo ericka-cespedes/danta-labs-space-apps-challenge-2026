@@ -1,8 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, Route, Routes, useLocation } from 'react-router'
+import artifactPlaceholder from './assets/artifact-placeholder.svg'
 import './App.css'
 
 type RouteId = 'project' | 'play' | 'team'
+
+const exampleArtifactPath = '/artifacts/apollo-11-lunar-module'
+
+const artifactCategories = ['All', 'Moon', 'Mars', 'Deep Space']
+const artifacts = [
+  { name: 'Apollo 11 Lunar Module', category: 'Moon', path: exampleArtifactPath },
+]
 
 const sectionRoutes: { id: RouteId; label: string }[] = [
   { id: 'project', label: 'The Project' },
@@ -267,6 +275,114 @@ function PendingPage({ title }: { title: string }) {
   )
 }
 
+function ArtifactImage() {
+  return (
+    <figure className="artifact-image">
+      <img alt="" src={artifactPlaceholder} />
+      <figcaption>Placeholder image · Not a historical photograph</figcaption>
+    </figure>
+  )
+}
+
+function ArtifactsPage() {
+  const [query, setQuery] = useState('')
+  const [category, setCategory] = useState('All')
+  const search = query.trim().toLocaleLowerCase()
+  const matchingArtifacts = artifacts.filter((artifact) =>
+    (category === 'All' || artifact.category === category) &&
+    artifact.name.toLocaleLowerCase().includes(search),
+  )
+
+  return (
+    <section className="artifacts-page" aria-labelledby="page-title">
+      <div className="artifacts-page__intro">
+        <span className="status-pill">Preview · Content in Development</span>
+        <h1 id="page-title">Artifact Encyclopedia</h1>
+        <p>
+          Explore the stories behind space exploration equipment. The artifact
+          collection and its sources are still being prepared.
+        </p>
+      </div>
+      <section className="artifact-collection" aria-label="Artifact collection">
+        <div className="artifact-filters">
+          <div>
+            <label htmlFor="artifact-search">Search artifacts</label>
+            <input
+              id="artifact-search"
+              type="search"
+              placeholder="Search by name"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+            />
+          </div>
+          <div>
+            <label htmlFor="artifact-category">Category</label>
+            <select
+              id="artifact-category"
+              value={category}
+              onChange={(event) => setCategory(event.target.value)}
+            >
+              {artifactCategories.map((option) => (
+                <option key={option} value={option}>{option === 'All' ? 'All Categories' : option}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <p className="artifact-results" role="status">
+          {matchingArtifacts.length} {matchingArtifacts.length === 1 ? 'example' : 'examples'} found
+        </p>
+        {matchingArtifacts.length > 0 ? (
+          <ul className="artifact-grid">
+            {matchingArtifacts.map((artifact) => (
+              <li key={artifact.path}>
+                <article className="artifact-card">
+                  <Link className="artifact-card__link" to={artifact.path}>
+                    <img alt="" src={artifactPlaceholder} />
+                    <div className="artifact-card__content">
+                      <p className="artifact-eyebrow">{artifact.category} · Example entry</p>
+                      <h3>{artifact.name}</h3>
+                      <p>Placeholder image and content.</p>
+                      <span className="artifact-card__action">View example <span aria-hidden="true">→</span></span>
+                    </div>
+                  </Link>
+                </article>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No examples match your search and category. Try a different search or category.</p>
+        )}
+      </section>
+    </section>
+  )
+}
+
+function ExampleArtifactPage() {
+  return (
+    <article className="artifacts-page artifact-detail" aria-labelledby="page-title">
+      <Link className="action-link" to="/artifacts">Back to the Artifact Encyclopedia</Link>
+      <div className="artifact-detail__layout">
+        <ArtifactImage />
+        <div className="artifact-detail__content">
+          <div className="artifact-detail__heading">
+            <p className="artifact-eyebrow">Moon · Example entry · Not yet approved</p>
+            <h1 id="page-title">Apollo 11 Lunar Module</h1>
+            <p>This page is a design preview. Its image, description, and reference are placeholders.</p>
+          </div>
+          <section aria-labelledby="artifact-story">
+            <h2 id="artifact-story">The Story</h2>
+            <p>Placeholder text. The team will add the artifact’s story after the content is approved.</p>
+          </section>
+          <section aria-labelledby="artifact-reference">
+            <h2 id="artifact-reference">Reference</h2>
+            <p>Source to be provided by the team.</p>
+          </section>
+        </div>
+      </div>
+    </article>
+  )
+}
+
 function ContactPage() {
   return (
     <section className="contact-page" aria-labelledby="page-title">
@@ -305,7 +421,9 @@ function App() {
 
   useEffect(() => {
     const page = pages.find(({ path }) => path === pathname)
-    document.title = page && pathname !== '/'
+    document.title = pathname === exampleArtifactPath
+      ? 'Apollo 11 Lunar Module Preview | Danta Labs'
+      : page && pathname !== '/'
       ? `${page.label} | Danta Labs`
       : pathname === '/'
         ? 'Danta Labs — Artifacts of the Past'
@@ -358,7 +476,8 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/game" element={<PendingPage title="How to Play" />} />
-          <Route path="/artifacts" element={<PendingPage title="Artifacts" />} />
+          <Route path="/artifacts" element={<ArtifactsPage />} />
+          <Route path={exampleArtifactPath} element={<ExampleArtifactPage />} />
           <Route path="/about" element={<PendingPage title="About Us" />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="*" element={<PendingPage title="Page Not Found" />} />
