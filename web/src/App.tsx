@@ -127,10 +127,11 @@ function App() {
 
       <header className="site-header">
         <a aria-label="Danta Labs home" className="brand" href="#top">
-          <svg aria-hidden="true" className="brand__mark" viewBox="0 0 40 40">
-            <path d="M3 4h34v11c0 12-10 20-17 22C13 34 3 27 3 15V4Z" />
-            <path d="M10 15c5-5 15-5 20 0-5 8-15 8-20 0Z" />
-          </svg>
+          <img
+            alt=""
+            className="brand__mark"
+            src={`${import.meta.env.BASE_URL}favicon-64.png?v=2`}
+          />
           <span>Danta Labs</span>
         </a>
 
@@ -264,10 +265,11 @@ function App() {
 
       <footer className="site-footer">
         <a className="brand brand--footer" href="#top">
-          <svg aria-hidden="true" className="brand__mark" viewBox="0 0 40 40">
-            <path d="M3 4h34v11c0 12-10 20-17 22C13 34 3 27 3 15V4Z" />
-            <path d="M10 15c5-5 15-5 20 0-5 8-15 8-20 0Z" />
-          </svg>
+          <img
+            alt=""
+            className="brand__mark"
+            src={`${import.meta.env.BASE_URL}favicon-64.png?v=2`}
+          />
           <span>Danta Labs</span>
         </a>
         <p>Artifacts of the Past · Project in progress</p>
