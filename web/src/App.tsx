@@ -67,11 +67,16 @@ function useNebulaParallax() {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
     let animationFrame = 0
 
+    const clearPosition = () => {
+      root.style.removeProperty('--nebula-parallax-y')
+      root.style.removeProperty('--nebula-parallax-rotation')
+    }
+
     const updatePosition = () => {
       animationFrame = 0
 
       if (reducedMotion.matches) {
-        root.style.removeProperty('--nebula-parallax-y')
+        clearPosition()
         return
       }
 
@@ -86,11 +91,12 @@ function useNebulaParallax() {
         '--nebula-parallax-y',
         `${-Math.round(maxOffset * progress)}px`,
       )
+      root.style.setProperty('--nebula-parallax-rotation', `${progress * 4}deg`)
     }
 
     const schedulePositionUpdate = () => {
       if (reducedMotion.matches) {
-        root.style.removeProperty('--nebula-parallax-y')
+        clearPosition()
         return
       }
 
@@ -109,7 +115,7 @@ function useNebulaParallax() {
       window.removeEventListener('resize', schedulePositionUpdate)
       reducedMotion.removeEventListener('change', schedulePositionUpdate)
       window.cancelAnimationFrame(animationFrame)
-      root.style.removeProperty('--nebula-parallax-y')
+      clearPosition()
     }
   }, [])
 }
