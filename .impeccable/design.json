@@ -1,0 +1,130 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-14T10:54:41.5616924-06:00",
+  "title": "Design System: Danta Labs",
+  "extensions": {
+    "colorMeta": {
+      "land": {
+        "role": "primary",
+        "displayName": "Garden Land",
+        "canonical": "#8ed462"
+      },
+      "water": {
+        "role": "neutral",
+        "displayName": "Warm Water",
+        "canonical": "#f5f1e4"
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Mission Ink",
+        "canonical": "#2c2e2a"
+      },
+      "sun": {
+        "role": "secondary",
+        "displayName": "Solar Yellow",
+        "canonical": "#f5e211"
+      },
+      "coral": {
+        "role": "secondary",
+        "displayName": "Launch Coral",
+        "canonical": "#ff705d"
+      },
+      "blue": {
+        "role": "tertiary",
+        "displayName": "Atmosphere Blue",
+        "canonical": "#2ba0ff"
+      },
+      "lilac": {
+        "role": "tertiary",
+        "displayName": "Lunar Lilac",
+        "canonical": "#ebc1ff"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Project title and large section headings."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Readable project, gameplay, and team copy."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "capsule-hover",
+        "value": "400ms cubic-bezier(0.2, 1.35, 0.3, 1)",
+        "purpose": "Small overshooting lift on interactive capsules."
+      },
+      {
+        "name": "coastline",
+        "value": "Interpolated from scroll progress; discrete section states under prefers-reduced-motion",
+        "purpose": "Decorative map movement behind page content."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "mobile",
+        "value": "760px"
+      },
+      {
+        "name": "compact-mobile",
+        "value": "390px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Action",
+      "kind": "button",
+      "refersTo": "action-primary",
+      "description": "Highest-priority action within the guide-map page.",
+      "html": "<a class=\"action-pill action-pill--primary\" href=\"#play\">See the gameplay preview</a>",
+      "css": ".action-pill--primary { background: #f5e211; color: #2c2e2a; border: 1px solid #2c2e2a; border-radius: 999px; padding: 0.65rem 1.1rem; min-height: 3rem; } .action-pill:hover { transform: translateY(-2px); }"
+    },
+    {
+      "name": "Active Route",
+      "kind": "nav",
+      "refersTo": "route-active",
+      "description": "Shows the current section in the capsule navigation.",
+      "html": "<a class=\"route-link is-active\" aria-current=\"location\" href=\"#project\"><span class=\"route-link__chip\" aria-hidden=\"true\"></span>The project</a>",
+      "css": ".route-link { border: 1px solid transparent; border-radius: 999px; padding: 0.55rem 0.8rem; min-height: 2.75rem; } .route-link.is-active { border-color: #2c2e2a; background: #f5e211; }"
+    },
+    {
+      "name": "Status Capsule",
+      "kind": "chip",
+      "refersTo": "status-pill",
+      "description": "Communicates project or gameplay state at a glance.",
+      "html": "<span class=\"status-pill\">In development</span>",
+      "css": ".status-pill { display: inline-flex; min-height: 2rem; align-items: center; border-radius: 999px; padding: 0.35rem 0.75rem; background: #ebc1ff; color: #2c2e2a; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Garden-Guide Map",
+    "overview": "The page reads like a friendly field guide to space stories. Broad, flat land shapes set the scene; familiar headings and a normal reading order keep the project easy to understand. Warm paper-colored water, expressive Gabarito typography, and small capsule markers add a playful sense of exploration without relying on paid services or external imagery.",
+    "keyCharacteristics": [
+      "Flat green land against warm cream water.",
+      "Rounded, high-contrast markers for routes, destinations, and project status.",
+      "Oversized, closely tracked headlines paired with readable body copy.",
+      "Map motion decorates the page; standard links remain the navigation."
+    ],
+    "rules": [
+      {
+        "name": "The Flat-By-Default Rule",
+        "body": "Keep surfaces unraised; use color and spacing to establish hierarchy.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Use the established palette and Gabarito Variable.",
+      "Keep the map decorative and preserve normal document reading order.",
+      "Only publish gameplay rules the team has confirmed."
+    ],
+    "donts": [
+      "Don't add gradients, grain, or map-shaped navigation.",
+      "Don't invent player counts, turns, setup, or win conditions.",
+      "Don't make paid APIs or services required."
+    ]
+  }
+}
