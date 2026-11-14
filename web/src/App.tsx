@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 
 type RouteId = 'project' | 'play' | 'team'
@@ -9,55 +9,17 @@ const routes: { id: RouteId; label: string }[] = [
   { id: 'team', label: 'The team' },
 ]
 
-const desktopCoastlines = [
-  [71, 84, 72, 81, 92, 54, 87, 30, 82, 19, 70, 77],
-  [69, 84, 55, 75, 88, 52, 83, 28, 79, 19, 62, 72],
-  [74, 91, 77, 88, 94, 58, 89, 32, 75, 11, 80, 84],
-]
-
-const mobileCoastlines = [
-  [72, 83, 18, 59, 34, 73, 91, 65, 53, 78, 70],
-  [66, 77, 28, 57, 43, 69, 83, 63, 47, 74, 65],
-  [74, 84, 21, 64, 32, 77, 93, 70, 57, 85, 72],
-]
-
-function interpolateFrame(progress: number, frames: number[][]) {
-  const scaledProgress = Math.max(0, Math.min(1, progress)) * (frames.length - 1)
-  const startIndex = Math.floor(scaledProgress)
-  const endIndex = Math.min(startIndex + 1, frames.length - 1)
-  const amount = scaledProgress - startIndex
-
-  return frames[startIndex].map(
-    (value, index) => value + (frames[endIndex][index] - value) * amount,
-  )
-}
-
-function coastlinePath(progress: number, mobile: boolean) {
-  const frame = interpolateFrame(
-    progress,
-    mobile ? mobileCoastlines : desktopCoastlines,
-  )
-
-  if (mobile) {
-    return `M0 0 H${frame[0]} C${frame[1]} ${frame[2]} ${frame[3]} ${frame[4]} ${frame[5]} 50 C${frame[6]} ${frame[7]} ${frame[8]} ${frame[9]} ${frame[10]} 100 H0 Z`
-  }
-
-  return `M0 0 H100 V${frame[0]} C${frame[1]} ${frame[2]} ${frame[3]} ${frame[4]} ${frame[5]} ${frame[6]} C${frame[7]} ${frame[8]} ${frame[9]} ${frame[10]} 0 ${frame[11]} Z`
-}
-
-function useGuideMap() {
-  const landRef = useRef<SVGPathElement>(null)
+function useActiveRoute() {
   const [activeRoute, setActiveRoute] = useState<RouteId>('project')
 
   useEffect(() => {
     const sections = routes
       .map(({ id }) => document.getElementById(id))
       .filter((section): section is HTMLElement => section !== null)
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
     let animationFrame = 0
-    let activeIndex = 0
+    let activeIndex = -1
 
-    const updateMap = () => {
+    const updateActiveRoute = () => {
       animationFrame = 0
       const viewportCenter = window.innerHeight * 0.48
       let closestIndex = 0
@@ -73,68 +35,92 @@ function useGuideMap() {
         }
       })
 
-      if (closestIndex !== activeIndex) {
-        activeIndex = closestIndex
-        setActiveRoute(routes[closestIndex].id)
-      }
+      if (closestIndex === activeIndex) return
 
-      const scrollRange = Math.max(
-        1,
-        document.documentElement.scrollHeight - window.innerHeight,
-      )
-      const pageProgress = window.scrollY / scrollRange
-      const mapProgress = reducedMotion.matches
-        ? activeIndex / (routes.length - 1)
-        : pageProgress
-      const isMobile = window.matchMedia('(max-width: 760px)').matches
-
-      landRef.current?.setAttribute('d', coastlinePath(mapProgress, isMobile))
+      activeIndex = closestIndex
+      setActiveRoute(routes[closestIndex].id)
     }
 
     const scheduleMapUpdate = () => {
       if (animationFrame === 0) {
-        animationFrame = window.requestAnimationFrame(updateMap)
+        animationFrame = window.requestAnimationFrame(updateActiveRoute)
       }
     }
 
     window.addEventListener('scroll', scheduleMapUpdate, { passive: true })
     window.addEventListener('resize', scheduleMapUpdate)
-    reducedMotion.addEventListener('change', scheduleMapUpdate)
     scheduleMapUpdate()
 
     return () => {
       window.removeEventListener('scroll', scheduleMapUpdate)
       window.removeEventListener('resize', scheduleMapUpdate)
-      reducedMotion.removeEventListener('change', scheduleMapUpdate)
       window.cancelAnimationFrame(animationFrame)
     }
   }, [])
 
-  return { landRef, activeRoute }
+  return activeRoute
+}
+
+function useNebulaParallax() {
+  useEffect(() => {
+    const root = document.documentElement
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    let animationFrame = 0
+
+    const updatePosition = () => {
+      animationFrame = 0
+
+      if (reducedMotion.matches) {
+        root.style.removeProperty('--nebula-parallax-y')
+        return
+      }
+
+      const scrollRange = document.documentElement.scrollHeight - window.innerHeight
+      const progress =
+        scrollRange > 0
+          ? Math.min(Math.max(window.scrollY / scrollRange, 0), 1)
+          : 0
+      const maxOffset = Math.min(window.innerHeight * 0.12, 144)
+
+      root.style.setProperty(
+        '--nebula-parallax-y',
+        `${-Math.round(maxOffset * progress)}px`,
+      )
+    }
+
+    const schedulePositionUpdate = () => {
+      if (reducedMotion.matches) {
+        root.style.removeProperty('--nebula-parallax-y')
+        return
+      }
+
+      if (animationFrame === 0) {
+        animationFrame = window.requestAnimationFrame(updatePosition)
+      }
+    }
+
+    window.addEventListener('scroll', schedulePositionUpdate, { passive: true })
+    window.addEventListener('resize', schedulePositionUpdate)
+    reducedMotion.addEventListener('change', schedulePositionUpdate)
+    schedulePositionUpdate()
+
+    return () => {
+      window.removeEventListener('scroll', schedulePositionUpdate)
+      window.removeEventListener('resize', schedulePositionUpdate)
+      reducedMotion.removeEventListener('change', schedulePositionUpdate)
+      window.cancelAnimationFrame(animationFrame)
+      root.style.removeProperty('--nebula-parallax-y')
+    }
+  }, [])
 }
 
 function App() {
-  const { landRef, activeRoute } = useGuideMap()
+  const activeRoute = useActiveRoute()
+  useNebulaParallax()
 
   return (
     <div className="site-shell" id="top">
-      <svg
-        aria-hidden="true"
-        className="map-surface"
-        focusable="false"
-        preserveAspectRatio="none"
-        viewBox="0 0 100 100"
-      >
-        <path
-          d={coastlinePath(
-            0,
-            typeof window !== 'undefined' && window.matchMedia('(max-width: 760px)').matches,
-          )}
-          fill="var(--land)"
-          ref={landRef}
-        />
-      </svg>
-
+      <div aria-hidden="true" className="nebula-backdrop" />
       <a className="skip-link" href="#main">
         Skip to content
       </a>
@@ -288,6 +274,13 @@ function App() {
         <a className="back-to-top" href="#top">
           Back to the start
         </a>
+        <p className="image-credit">
+          Orion Nebula image:{' '}
+          <a href="https://science.nasa.gov/image-detail/orion-nebula-xlarge_web/">
+            NASA, ESA, M. Robberto (Space Telescope Science Institute/ESA), and
+            the Hubble Space Telescope Orion Treasury Project Team
+          </a>
+        </p>
       </footer>
     </div>
   )

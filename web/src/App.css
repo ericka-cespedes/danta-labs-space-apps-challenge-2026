@@ -2,16 +2,17 @@
   font-family: 'Gabarito Variable', sans-serif;
   font-synthesis: none;
   font-weight: 500;
-  color: #2c2e2a;
-  background: #f5f1e4;
+  color: #f2ecfa;
+  background: #0c0918;
 
-  --ink: #2c2e2a;
-  --land: #8ed462;
-  --water: #f5f1e4;
-  --sun: #f5e211;
-  --coral: #ff705d;
-  --blue: #2ba0ff;
-  --lilac: #ebc1ff;
+  --ink: #0c0918;
+  --ground: #0c0918;
+  --deep: #241642;
+  --orbit: #354b9a;
+  --violet: #9c71e8;
+  --cyan: #74d6e4;
+  --paper: #f2ecfa;
+  --gold: #f4c36a;
   --content-width: 76rem;
 }
 
@@ -22,19 +23,19 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 6rem;
-  scrollbar-color: var(--ink) var(--water);
+  scrollbar-color: var(--violet) var(--ground);
 }
 
 body {
   min-width: 320px;
   margin: 0;
-  background: var(--water);
-  color: var(--ink);
+  background: var(--ground);
+  color: var(--paper);
 }
 
-body::selection {
+::selection {
   color: var(--ink);
-  background: var(--sun);
+  background: var(--cyan);
 }
 
 a {
@@ -43,7 +44,7 @@ a {
 }
 
 a:focus-visible {
-  outline: 3px solid var(--blue);
+  outline: 3px solid var(--cyan);
   outline-offset: 4px;
 }
 
@@ -59,13 +60,36 @@ a {
   overflow: clip;
 }
 
-.map-surface {
+.site-shell::before {
+  position: fixed;
+  z-index: 1;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 12% 18%, rgb(116 214 228 / 70%) 99%, transparent),
+    radial-gradient(1px 1px at 72% 44%, rgb(242 236 250 / 55%) 99%, transparent),
+    radial-gradient(1.5px 1.5px at 36% 78%, rgb(156 113 232 / 65%) 99%, transparent);
+  background-size: 281px 239px, 347px 313px, 419px 367px;
+  content: '';
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.nebula-backdrop {
   position: fixed;
   z-index: 0;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  inset: -12vh -4vw;
+  background-image:
+    linear-gradient(
+      180deg,
+      rgb(12 9 24 / 54%) 0%,
+      rgb(12 9 24 / 68%) 55%,
+      rgb(12 9 24 / 84%) 100%
+    ),
+    url('./assets/orion-nebula.jpg');
+  background-position: center;
+  background-size: cover;
   pointer-events: none;
+  transform: translate3d(0, var(--nebula-parallax-y, 0px), 0);
 }
 
 .skip-link,
@@ -73,7 +97,7 @@ a {
 main,
 .site-footer {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .skip-link {
@@ -84,7 +108,7 @@ main,
   border-radius: 999px;
   padding: 0.65rem 1rem;
   color: var(--ink);
-  background: var(--sun);
+  background: var(--gold);
 }
 
 .skip-link:focus {
@@ -113,7 +137,7 @@ main,
   align-items: center;
   gap: 0.6rem;
   flex: 0 0 auto;
-  color: var(--ink);
+  color: var(--paper);
   font-size: 1.35rem;
   letter-spacing: -0.05em;
   text-decoration: none;
@@ -122,11 +146,11 @@ main,
 .brand__mark {
   width: 2rem;
   height: 2rem;
-  fill: var(--ink);
+  fill: var(--paper);
 }
 
 .brand__mark path + path {
-  fill: var(--land);
+  fill: var(--cyan);
 }
 
 .route-nav {
@@ -147,9 +171,9 @@ main,
   font-size: 0.95rem;
   text-decoration: none;
   transition:
-    background-color 400ms cubic-bezier(0.2, 1.35, 0.3, 1),
-    border-color 400ms cubic-bezier(0.2, 1.35, 0.3, 1),
-    transform 400ms cubic-bezier(0.2, 1.35, 0.3, 1);
+    background-color 280ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 280ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 280ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .route-link:hover {
@@ -164,25 +188,26 @@ main,
   border-radius: 50%;
   background: var(--route-color);
   transition:
-    order 400ms cubic-bezier(0.2, 1.35, 0.3, 1),
-    transform 400ms cubic-bezier(0.2, 1.35, 0.3, 1);
+    order 280ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 280ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .route-link--project {
-  --route-color: var(--coral);
+  --route-color: var(--cyan);
 }
 
 .route-link--play {
-  --route-color: var(--blue);
+  --route-color: var(--violet);
 }
 
 .route-link--team {
-  --route-color: var(--lilac);
+  --route-color: var(--gold);
 }
 
 .route-link.is-active {
-  border-color: var(--ink);
-  background: var(--sun);
+  border-color: var(--cyan);
+  background: var(--orbit);
+  color: var(--paper);
 }
 
 .route-link.is-active .route-link__chip {
@@ -200,6 +225,7 @@ main,
   flex-direction: column;
   justify-content: center;
   padding-block: 5rem 4rem;
+  color: var(--paper);
 }
 
 h1,
@@ -241,14 +267,14 @@ h2 {
   min-height: 3rem;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--ink);
+  border: 1px solid var(--cyan);
   border-radius: 999px;
   padding: 0.65rem 1.1rem;
-  color: var(--ink);
+  color: var(--paper);
   text-decoration: none;
   transition:
-    background-color 400ms cubic-bezier(0.2, 1.35, 0.3, 1),
-    transform 400ms cubic-bezier(0.2, 1.35, 0.3, 1);
+    background-color 280ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 280ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .action-pill:hover {
@@ -256,14 +282,23 @@ h2 {
 }
 
 .action-pill--primary {
-  background: var(--sun);
+  border-color: var(--gold);
+  background: var(--gold);
+  color: var(--ink);
 }
 
 .action-pill--primary:hover {
-  background: var(--coral);
+  border-color: var(--cyan);
+  background: var(--cyan);
+}
+
+.action-pill:focus-visible {
+  outline: 3px solid var(--cyan);
+  outline-offset: 4px;
 }
 
 .action-link {
+  color: var(--cyan);
   text-decoration-thickness: 1px;
 }
 
@@ -282,13 +317,18 @@ h2 {
   align-items: center;
   border-radius: 999px;
   padding: 0.35rem 0.75rem;
-  background: var(--lilac);
+  background: var(--violet);
+  color: var(--ink);
 }
 
 .project-story {
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(18rem, 0.75fr);
   gap: 4rem;
+  border-radius: 1.75rem;
+  padding: 4rem 3rem;
+  background: var(--paper);
+  color: var(--ink);
   padding-block: 6rem 9rem;
 }
 
@@ -331,15 +371,16 @@ h2 {
 }
 
 .destination--moon {
-  background: var(--sun);
+  background: var(--cyan);
 }
 
 .destination--mars {
-  background: var(--coral);
+  background: var(--gold);
 }
 
 .destination--deep-space {
-  background: var(--blue);
+  background: var(--deep);
+  color: var(--paper);
 }
 
 .play-section {
@@ -347,6 +388,10 @@ h2 {
   grid-template-columns: minmax(0, 0.9fr) minmax(18rem, 1fr);
   column-gap: 5rem;
   row-gap: 1rem;
+  border-radius: 1.75rem;
+  padding-inline: 3rem;
+  background: var(--orbit);
+  color: var(--paper);
   padding-block: 8rem 9rem;
   scroll-margin-top: 3rem;
 }
@@ -365,7 +410,8 @@ h2 {
 
 .status-pill--preview {
   margin-top: 0.6rem;
-  background: var(--sun);
+  background: var(--gold);
+  color: var(--ink);
 }
 
 .play-section__body {
@@ -382,7 +428,7 @@ h2 {
   align-self: end;
   max-width: 42ch;
   margin: 0;
-  border-top: 1px solid var(--ink);
+  border-top: 1px solid rgb(242 236 250 / 45%);
   padding-top: 1rem;
   font-size: 1rem;
   line-height: 1.45;
@@ -392,6 +438,10 @@ h2 {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(20rem, 1fr);
   gap: 4rem;
+  border-radius: 1.75rem;
+  padding-inline: 3rem;
+  background: var(--paper);
+  color: var(--ink);
   padding-block: 7rem 10rem;
   scroll-margin-top: 3rem;
 }
@@ -416,7 +466,7 @@ h2 {
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
-  border-bottom: 1px solid var(--ink);
+  border-bottom: 1px solid rgb(12 9 24 / 22%);
   padding: 0.75rem 0.85rem 0.75rem 0;
   font-size: 1.4rem;
 }
@@ -424,7 +474,7 @@ h2 {
 .team-list__role {
   border-radius: 999px;
   padding: 0.35rem 0.65rem;
-  background: var(--coral);
+  background: var(--violet);
   font-size: 0.85rem;
 }
 
@@ -434,7 +484,7 @@ h2 {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 1rem 2rem;
-  border-top: 1px solid var(--ink);
+  border-top: 1px solid rgb(242 236 250 / 35%);
   padding-block: 1.5rem 2rem;
 }
 
@@ -451,10 +501,22 @@ h2 {
   margin: 0;
 }
 
+.image-credit {
+  max-width: 42rem;
+  color: var(--paper);
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.image-credit a {
+  color: var(--cyan);
+}
+
 .back-to-top {
   border-radius: 999px;
   padding: 0.5rem 0.75rem;
-  background: var(--lilac);
+  background: var(--deep);
+  color: var(--paper);
   text-decoration: none;
 }
 
@@ -464,7 +526,7 @@ h2 {
   .project-section,
   .play-section,
   .team-section {
-    width: min(100% - 2rem, var(--content-width));
+    width: min(calc(100vw - 2rem), var(--content-width));
   }
 
   .site-header {
@@ -498,6 +560,8 @@ h2 {
   }
 
   .hero__intro {
+    width: 100%;
+    min-width: 0;
     max-width: 42ch;
     font-size: 1.15rem;
   }
@@ -515,6 +579,12 @@ h2 {
     grid-template-columns: 1fr;
     gap: 2.25rem;
     padding-block: 5rem 6rem;
+  }
+
+  .project-story,
+  .play-section,
+  .team-section {
+    padding-inline: 1.25rem;
   }
 
   .project-story h2,
@@ -561,6 +631,10 @@ h2 {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .nebula-backdrop {
+    transform: none;
   }
 
   *,

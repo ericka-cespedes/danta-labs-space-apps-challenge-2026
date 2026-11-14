@@ -1,66 +1,85 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-14T10:54:41.5616924-06:00",
+  "generatedAt": "2026-11-14T17:58:00.000Z",
   "title": "Design System: Danta Labs",
   "extensions": {
     "colorMeta": {
-      "land": {
+      "void": {
         "role": "primary",
-        "displayName": "Garden Land",
-        "canonical": "#8ed462"
+        "displayName": "Void",
+        "canonical": "#0C0918",
+        "tonalRamp": ["#171421", "#211C31", "#2B2640", "#3D3654", "#514A69", "#716A88", "#A49EB6", "#F5F1FC"]
       },
-      "water": {
-        "role": "neutral",
-        "displayName": "Warm Water",
-        "canonical": "#f5f1e4"
-      },
-      "ink": {
-        "role": "neutral",
-        "displayName": "Mission Ink",
-        "canonical": "#2c2e2a"
-      },
-      "sun": {
-        "role": "secondary",
-        "displayName": "Solar Yellow",
-        "canonical": "#f5e211"
-      },
-      "coral": {
-        "role": "secondary",
-        "displayName": "Launch Coral",
-        "canonical": "#ff705d"
-      },
-      "blue": {
+      "deep-purple": {
         "role": "tertiary",
-        "displayName": "Atmosphere Blue",
-        "canonical": "#2ba0ff"
+        "displayName": "Deep Purple",
+        "canonical": "#241642",
+        "tonalRamp": ["#130D1D", "#1B1029", "#28183C", "#392353", "#4B306C", "#684B8C", "#A58BBF", "#F4EFFA"]
       },
-      "lilac": {
-        "role": "tertiary",
-        "displayName": "Lunar Lilac",
-        "canonical": "#ebc1ff"
+      "cosmic-blue": {
+        "role": "secondary",
+        "displayName": "Cosmic Blue",
+        "canonical": "#354B9A",
+        "tonalRamp": ["#101323", "#171D39", "#202B5C", "#2C3B7A", "#4058A5", "#6C80C4", "#A8B6E3", "#F0F3FC"]
+      },
+      "nebula-violet": {
+        "role": "secondary",
+        "displayName": "Nebula Violet",
+        "canonical": "#9C71E8",
+        "tonalRamp": ["#1B1229", "#30204B", "#4C3274", "#68469E", "#835DC2", "#A17BD7", "#CBB5EE", "#F6F1FD"]
+      },
+      "pale-cyan": {
+        "role": "secondary",
+        "displayName": "Pale Cyan",
+        "canonical": "#74D6E4",
+        "tonalRamp": ["#102024", "#18383D", "#22545B", "#31757E", "#4599A4", "#65BCC7", "#A2DDE4", "#F0FCFD"]
+      },
+      "starlight": {
+        "role": "neutral",
+        "displayName": "Starlight",
+        "canonical": "#F2ECFA",
+        "tonalRamp": ["#1B1920", "#302D36", "#4D4954", "#6C6775", "#8B8594", "#AAA4B4", "#CDC7D7", "#F7F3FC"]
+      },
+      "warm-gold": {
+        "role": "secondary",
+        "displayName": "Warm Gold",
+        "canonical": "#F4C36A",
+        "tonalRamp": ["#241A0D", "#48351D", "#70532A", "#98733A", "#C1934D", "#DCAE61", "#F0CE91", "#FCF6E9"]
       }
     },
     "typographyMeta": {
       "display": {
         "displayName": "Display",
-        "purpose": "Project title and large section headings."
+        "purpose": "Homepage title in the hero."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Project, gameplay, and team section headings."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Lead sentence in the gameplay preview."
       },
       "body": {
         "displayName": "Body",
         "purpose": "Readable project, gameplay, and team copy."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Navigation, status details, and compact role markers."
       }
     },
     "shadows": [],
     "motion": [
       {
         "name": "capsule-hover",
-        "value": "400ms cubic-bezier(0.2, 1.35, 0.3, 1)",
-        "purpose": "Small overshooting lift on interactive capsules."
+        "value": "280ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Quick ease-out lift on action and route capsules."
       },
       {
-        "name": "coastline",
-        "value": "Interpolated from scroll progress; discrete section states under prefers-reduced-motion",
-        "purpose": "Decorative map movement behind page content."
+        "name": "active-route",
+        "value": "280ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Transitions route marker order and scale with the active section."
       }
     ],
     "breakpoints": [
@@ -79,52 +98,82 @@
       "name": "Primary Action",
       "kind": "button",
       "refersTo": "action-primary",
-      "description": "Highest-priority action within the guide-map page.",
-      "html": "<a class=\"action-pill action-pill--primary\" href=\"#play\">See the gameplay preview</a>",
-      "css": ".action-pill--primary { background: #f5e211; color: #2c2e2a; border: 1px solid #2c2e2a; border-radius: 999px; padding: 0.65rem 1.1rem; min-height: 3rem; } .action-pill:hover { transform: translateY(-2px); }"
+      "description": "Highest-priority in-page action.",
+      "html": "<a class=\"ds-action-primary\" href=\"#play\">See the gameplay preview</a>",
+      "css": ".ds-action-primary { display: inline-flex; min-height: 3rem; align-items: center; justify-content: center; border: 1px solid var(--gold); border-radius: 999px; padding: 0.65rem 1.1rem; background: var(--gold); color: var(--ink); text-decoration: none; transition: background-color 280ms cubic-bezier(0.16, 1, 0.3, 1), border-color 280ms cubic-bezier(0.16, 1, 0.3, 1), transform 280ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-action-primary:hover { transform: translateY(-2px); border-color: var(--cyan); background: var(--cyan); } .ds-action-primary:focus-visible { outline: 3px solid var(--cyan); outline-offset: 4px; } .ds-action-primary:active { transform: translateY(0); }"
+    },
+    {
+      "name": "Secondary Text Action",
+      "kind": "button",
+      "refersTo": "action-secondary",
+      "description": "Lower-priority in-page link.",
+      "html": "<a class=\"ds-action-secondary\" href=\"#team\">Meet the team</a>",
+      "css": ".ds-action-secondary { color: var(--cyan); text-decoration-thickness: 1px; text-underline-offset: 0.18em; } .ds-action-secondary:focus-visible { outline: 3px solid var(--cyan); outline-offset: 4px; }"
     },
     {
       "name": "Active Route",
       "kind": "nav",
       "refersTo": "route-active",
-      "description": "Shows the current section in the capsule navigation.",
-      "html": "<a class=\"route-link is-active\" aria-current=\"location\" href=\"#project\"><span class=\"route-link__chip\" aria-hidden=\"true\"></span>The project</a>",
-      "css": ".route-link { border: 1px solid transparent; border-radius: 999px; padding: 0.55rem 0.8rem; min-height: 2.75rem; } .route-link.is-active { border-color: #2c2e2a; background: #f5e211; }"
+      "description": "Indicates the section nearest the viewport center.",
+      "html": "<a class=\"ds-route ds-route--project ds-route--active\" aria-current=\"location\" href=\"#project\"><span class=\"ds-route-marker\" aria-hidden=\"true\"></span>The project</a>",
+      "css": ".ds-route { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; border: 1px solid transparent; border-radius: 999px; padding: 0.55rem 0.8rem; color: var(--paper); text-decoration: none; transition: background-color 280ms cubic-bezier(0.16, 1, 0.3, 1), border-color 280ms cubic-bezier(0.16, 1, 0.3, 1), transform 280ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-route--project { --route-color: var(--cyan); } .ds-route:hover { transform: translateY(-2px); } .ds-route.ds-route--active { border-color: var(--cyan); background: var(--orbit); color: var(--paper); } .ds-route-marker { order: 1; width: 0.6rem; height: 0.6rem; flex: 0 0 auto; border-radius: 50%; background: var(--route-color); transition: order 280ms cubic-bezier(0.16, 1, 0.3, 1), transform 280ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-route.ds-route--active .ds-route-marker { order: -1; transform: scale(1.2); } .ds-route:focus-visible { outline: 3px solid var(--cyan); outline-offset: 4px; }"
     },
     {
       "name": "Status Capsule",
       "kind": "chip",
       "refersTo": "status-pill",
-      "description": "Communicates project or gameplay state at a glance.",
-      "html": "<span class=\"status-pill\">In development</span>",
-      "css": ".status-pill { display: inline-flex; min-height: 2rem; align-items: center; border-radius: 999px; padding: 0.35rem 0.75rem; background: #ebc1ff; color: #2c2e2a; }"
+      "description": "Makes project or gameplay progress explicit.",
+      "html": "<span class=\"ds-status\">In development</span>",
+      "css": ".ds-status { display: inline-flex; min-height: 2rem; align-items: center; border-radius: 999px; padding: 0.35rem 0.75rem; background: var(--violet); color: var(--ink); }"
+    },
+    {
+      "name": "Project Story Panel",
+      "kind": "card",
+      "refersTo": "story-panel",
+      "description": "Light reading surface for the project narrative.",
+      "html": "<section class=\"ds-story-panel\"><div><h2>Space equipment has stories beyond its mission.</h2><p>Discoveries and legacy connect the stories.</p></div><div><p>Stories span the Moon, Mars, and deep space.</p></div></section>",
+      "css": ".ds-story-panel { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(18rem, 0.75fr); gap: 4rem; border-radius: 1.75rem; padding: 6rem 3rem 9rem; background: var(--paper); color: var(--ink); }"
+    },
+    {
+      "name": "Gameplay Panel",
+      "kind": "card",
+      "refersTo": "gameplay-panel",
+      "description": "Contrasting surface for the rules-in-development preview.",
+      "html": "<section class=\"ds-gameplay-panel\"><h2>How to play</h2><p>The tabletop concept is taking shape, but the rules are not final yet.</p></section>",
+      "css": ".ds-gameplay-panel { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(18rem, 1fr); column-gap: 5rem; row-gap: 1rem; border-radius: 1.75rem; padding: 8rem 3rem 9rem; background: var(--orbit); color: var(--paper); }"
     }
   ],
   "narrative": {
-    "northStar": "The Garden-Guide Map",
-    "overview": "The page reads like a friendly field guide to space stories. Broad, flat land shapes set the scene; familiar headings and a normal reading order keep the project easy to understand. Warm paper-colored water, expressive Gabarito typography, and small capsule markers add a playful sense of exploration without relying on paid services or external imagery.",
+    "northStar": "The Nebula Archive",
+    "overview": "The homepage frames space-exploration stories in a quiet, luminous night sky. A near-black violet field and restrained star points establish the atmosphere; pale reading panels make the project and team easy to scan, while a cosmic-blue gameplay section gives the rules preview its own clear place. The existing Gabarito typography keeps the presentation warm and approachable without weakening the dark, archival mood.\n\nThe visual language is made from color, spacing, capsule navigation, and alternating section surfaces. Preserve the project's explicit in-development status and factual storytelling focus; the design presents an unfinished tabletop concept, not established gameplay.",
     "keyCharacteristics": [
-      "Flat green land against warm cream water.",
-      "Rounded, high-contrast markers for routes, destinations, and project status.",
-      "Oversized, closely tracked headlines paired with readable body copy.",
-      "Map motion decorates the page; standard links remain the navigation."
+      "Near-black violet frame with a subtle, repeating star-point texture.",
+      "Starlight reading panels alternating with a cosmic-blue gameplay panel.",
+      "Gabarito headlines and readable, open body copy.",
+      "Capsule links and status markers use cyan, violet, and warm gold as focused accents."
     ],
     "rules": [
       {
-        "name": "The Flat-By-Default Rule",
-        "body": "Keep surfaces unraised; use color and spacing to establish hierarchy.",
-        "section": "elevation"
+        "name": "The Night-Sky Frame Rule",
+        "body": "Keep the near-black violet field as the page's continuous frame; use the star points as a subtle texture behind, not in place of, readable content.",
+        "section": "colors"
+      },
+      {
+        "name": "The Luminous Reading Rule",
+        "body": "Keep long-form project and team copy on starlight surfaces, reserving cosmic blue for the gameplay preview.",
+        "section": "colors"
       }
     ],
     "dos": [
-      "Use the established palette and Gabarito Variable.",
-      "Keep the map decorative and preserve normal document reading order.",
-      "Only publish gameplay rules the team has confirmed."
+      "Do use the documented night, starlight, blue, violet, cyan, and gold palette roles.",
+      "Do keep Gabarito Variable across display and body text, with the established tight heading tracking and readable body measure.",
+      "Do preserve capsule interaction markers, visible keyboard focus, and the contrast between reading panels and gameplay.",
+      "Do keep the project and gameplay status explicit while rules remain in development."
     ],
     "donts": [
-      "Don't add gradients, grain, or map-shaped navigation.",
-      "Don't invent player counts, turns, setup, or win conditions.",
-      "Don't make paid APIs or services required."
+      "Don't weaken the starlight reading surfaces by placing long-form copy directly over the star texture.",
+      "Don't present unconfirmed setup, play sequence, or goals as established rules.",
+      "Don't let decorative star points compete with the content or become navigation."
     ]
   }
 }
