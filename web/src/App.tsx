@@ -4,9 +4,9 @@ import './App.css'
 type RouteId = 'project' | 'play' | 'team'
 
 const routes: { id: RouteId; label: string }[] = [
-  { id: 'project', label: 'The project' },
-  { id: 'play', label: 'Gameplay preview' },
-  { id: 'team', label: 'The team' },
+  { id: 'project', label: 'The Project' },
+  { id: 'play', label: 'Gameplay Preview' },
+  { id: 'team', label: 'The Team' },
 ]
 
 const desktopCoastlines = [
@@ -136,7 +136,7 @@ function App() {
       </svg>
 
       <a className="skip-link" href="#main">
-        Skip to content
+        Skip to Content
       </a>
 
       <header className="site-header">
@@ -148,7 +148,7 @@ function App() {
           <span>Danta Labs</span>
         </a>
 
-        <nav aria-label="Page sections" className="route-nav">
+        <nav aria-label="Page Sections" className="route-nav">
           {routes.map(({ id, label }) => (
             <a
               aria-current={activeRoute === id ? 'location' : undefined}
@@ -183,21 +183,17 @@ function App() {
             </p>
             <div className="hero__actions">
               <a className="action-pill action-pill--primary" href="#play">
-                See the gameplay preview
+                See the Gameplay Preview
               </a>
               <a className="action-link" href="#team">
-                Meet the team
+                Meet the Team
               </a>
-            </div>
-            <div className="project-status">
-              <span className="status-pill">In development</span>
-              <span>NASA Space Apps Challenge 2026 · Costa Rica</span>
             </div>
           </div>
 
           <div className="project-story">
             <div className="project-story__lead">
-              <h2>Space equipment has stories beyond its mission.</h2>
+              <h2>Space Equipment Has Stories Beyond Its Mission.</h2>
               <p>
                 Danta Labs is creating a tabletop experience for young space
                 enthusiasts to connect with the discoveries and continuing
@@ -211,10 +207,10 @@ function App() {
                 behind. The experience explores stories from the Moon, Mars,
                 and deep space.
               </p>
-              <ul aria-label="Exploration settings" className="destination-list">
+              <ul aria-label="Exploration Settings" className="destination-list">
                 <li className="destination destination--moon">Moon</li>
                 <li className="destination destination--mars">Mars</li>
-                <li className="destination destination--deep-space">Deep space</li>
+                <li className="destination destination--deep-space">Deep Space</li>
               </ul>
             </div>
           </div>
@@ -227,9 +223,9 @@ function App() {
           id="play"
         >
           <div className="section-heading">
-            <h2 id="play-title">How to play</h2>
+            <h2 id="play-title">How to Play</h2>
             <span className="status-pill status-pill--preview">
-              Rules in development
+              Rules in Development
             </span>
           </div>
           <div className="play-section__body">
@@ -264,14 +260,14 @@ function App() {
           </div>
           <ul className="team-list">
             <li>
-              <span>Celeste</span>
-              <span className="team-list__role">Team leader</span>
+              <span>Celeste Alpizar</span>
+              <span className="team-list__role">Team Leader</span>
             </li>
-            <li><span>Ericka</span></li>
-            <li><span>Luis</span></li>
-            <li><span>Ulises</span></li>
-            <li><span>Pedro</span></li>
-            <li><span>Sally</span></li>
+            <li><span>Ericka Cespedes</span></li>
+            <li><span>Jorge Sobalvarro</span></li>
+            <li><span>Luis Chaverri</span></li>
+            <li><span>Pedro Santana</span></li>
+            <li><span>Sally Sanchez</span></li>
           </ul>
         </section>
       </main>
@@ -284,9 +280,9 @@ function App() {
           </svg>
           <span>Danta Labs</span>
         </a>
-        <p>Artifacts of the Past · Project in progress</p>
+        <p>Artifacts of the Past · Project in Progress</p>
         <a className="back-to-top" href="#top">
-          Back to the start
+          Back to the Start
         </a>
       </footer>
     </div>
