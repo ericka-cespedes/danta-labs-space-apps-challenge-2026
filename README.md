@@ -22,12 +22,12 @@ We hope to connect young space enthusiasts with the history, scientific discover
 
 ### Meet the Team
 
-- **Celeste** — Team Leader
-- Ericka
-- Luis
-- Ulises
-- Pedro
-- Sally
+- Celeste Alpizar — Team Leader
+- Ericka Cespedes
+- Jorge Sobalvarro
+- Luis Chaverri
+- Pedro Santana
+- Sally Sanchez
 
 ### Project Status
 
