@@ -137,6 +137,7 @@ main,
 .pending-page,
 .about-page,
 .contact-page,
+.artifacts-page,
 .project-section,
 .play-section,
 .team-section {
@@ -201,6 +202,18 @@ main,
   line-height: 1.5;
 }
 
+.artifacts-page {
+  min-height: 65svh;
+  padding-block: clamp(4rem, 9vh, 7rem);
+}
+
+.artifacts-page h1 {
+  max-width: 16ch;
+  margin: 1.5rem 0;
+  font-size: clamp(3rem, 6vw, 4.8rem);
+  line-height: 1;
+}
+
 .about-intro {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
@@ -212,6 +225,267 @@ main,
 .about-team h2 {
   font-size: clamp(3rem, 6vw, 4.8rem);
   line-height: 1;
+}
+
+.artifacts-page__intro p,
+.artifact-detail__heading > p:last-child {
+  max-width: 60ch;
+  font-size: 1.15rem;
+  line-height: 1.5;
+}
+
+.artifact-image {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgb(242 236 250 / 35%);
+  border-radius: 1.75rem;
+  background: var(--deep);
+}
+
+.artifact-image img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+
+.artifact-image figcaption {
+  padding: 0.7rem 1rem;
+  background: var(--deep);
+  color: var(--paper);
+  font-size: 0.9rem;
+}
+
+.artifact-eyebrow {
+  color: var(--cyan);
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+}
+
+.artifact-detail__content h2 {
+  margin-bottom: 1rem;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  line-height: 1.05;
+}
+
+.artifact-detail__content section p {
+  max-width: 60ch;
+  font-size: 1.15rem;
+  line-height: 1.5;
+}
+
+.artifacts-browser {
+  padding-block: clamp(2.5rem, 6vh, 4rem) 6rem;
+}
+
+.artifacts-browser .artifacts-page__intro h1 {
+  margin: 0 0 1rem;
+}
+
+.artifacts-browser .artifacts-page__intro p {
+  margin: 0 0 1rem;
+}
+
+.artifacts-browser .artifacts-page__intro .artifact-preview-note {
+  font-size: 0.95rem;
+}
+
+.artifact-collection {
+  margin-top: 2rem;
+}
+
+.artifact-browser__layout {
+  display: grid;
+  grid-template-columns: minmax(14rem, 17rem) minmax(0, 1fr);
+  gap: clamp(1.25rem, 2.5vw, 2.5rem);
+  align-items: start;
+}
+
+.artifact-browser__sidebar {
+  min-width: 0;
+  padding: 1.25rem;
+  border: 1px solid rgb(242 236 250 / 25%);
+  border-radius: 1.25rem;
+  background: var(--deep);
+}
+
+.artifact-filters {
+  display: grid;
+  gap: 1rem;
+}
+
+.artifact-filters label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.artifact-filters input,
+.artifact-filters select {
+  width: 100%;
+  min-height: 3rem;
+  border: 1px solid rgb(242 236 250 / 65%);
+  border-radius: 0.5rem;
+  padding: 0.65rem 0.8rem;
+  color: var(--paper);
+  background: var(--deep);
+  font: inherit;
+}
+
+.artifact-filters input::placeholder {
+  color: rgb(242 236 250 / 70%);
+}
+
+.artifact-filters input:focus-visible,
+.artifact-filters select:focus-visible {
+  outline: 3px solid var(--cyan);
+  outline-offset: 4px;
+}
+
+.artifact-results {
+  margin: 1.5rem 0 0.75rem;
+  color: var(--paper);
+  font-size: 0.9rem;
+}
+
+.artifact-list {
+  max-height: 25rem;
+  margin: 0;
+  padding: 0 0.35rem 0 0;
+  overflow-y: auto;
+  scrollbar-color: var(--violet) var(--ground);
+  list-style: none;
+}
+
+.artifact-list__item {
+  width: 100%;
+  border: 1px solid transparent;
+  border-radius: 0.75rem;
+  padding: 0.9rem;
+  color: var(--paper);
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.artifact-list__item:hover,
+.artifact-list__item[aria-pressed='true'] {
+  border-color: var(--cyan);
+  background: var(--orbit);
+}
+
+.artifact-list__item:focus-visible {
+  outline: 3px solid var(--cyan);
+  outline-offset: -3px;
+}
+
+.artifact-list__item span {
+  display: block;
+}
+
+.artifact-list__item span:first-child {
+  font-size: 1.1rem;
+  line-height: 1.2;
+}
+
+.artifact-list__item span:last-child {
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+}
+
+.artifact-empty {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.artifact-showcase {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(15rem, 0.8fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: start;
+  min-width: 0;
+}
+
+.artifact-showcase .artifact-image img {
+  aspect-ratio: 4 / 3;
+}
+
+.artifact-showcase__content {
+  min-width: 0;
+  padding: clamp(1.25rem, 2vw, 2rem);
+  border-radius: 1.25rem;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.artifact-showcase__content h2 {
+  margin: 0;
+  font-size: clamp(1.9rem, 3vw, 2.8rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.artifact-showcase__content p {
+  line-height: 1.5;
+}
+
+.artifact-showcase__meta {
+  color: #47306b;
+  font-size: 0.9rem;
+}
+
+.artifact-showcase__content section {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgb(36 22 66 / 25%);
+}
+
+.artifact-showcase__content h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.artifact-showcase__content section p {
+  margin: 0.5rem 0 0;
+}
+
+.artifact-showcase__link {
+  display: inline-block;
+  margin-top: 1.75rem;
+  color: #354b9a;
+  font-weight: 700;
+}
+
+.artifact-showcase--empty {
+  display: block;
+  border: 1px solid rgb(242 236 250 / 25%);
+  border-radius: 1.25rem;
+  padding: 2rem;
+  background: var(--deep);
+  line-height: 1.5;
+}
+
+.artifact-detail__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: start;
+  margin-top: clamp(2rem, 5vw, 4rem);
+}
+
+.artifact-detail__heading {
+  margin-bottom: 2rem;
+}
+
+.artifact-detail__heading h1 {
+  margin-block: 1rem;
+}
+
+.artifact-detail__content section {
+  border-top: 1px solid rgb(242 236 250 / 35%);
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
 }
 
 .contact-page {
@@ -772,6 +1046,12 @@ h2 {
   text-decoration: none;
 }
 
+@media (max-width: 1050px) {
+  .artifact-showcase {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 760px) {
   .site-header,
   .site-footer,
@@ -779,6 +1059,7 @@ h2 {
   .pending-page,
   .about-page,
   .contact-page,
+  .artifacts-page,
   .project-section,
   .play-section,
   .team-section {
@@ -825,8 +1106,43 @@ h2 {
     padding-block: 4rem 3rem;
   }
 
-  .contact-page {
+  .contact-page,
+  .artifact-browser__layout,
+  .artifact-detail__layout {
     grid-template-columns: 1fr;
+  }
+
+  .artifacts-browser {
+    padding-top: 2rem;
+  }
+
+  .artifacts-browser .artifacts-page__intro h1 {
+    font-size: clamp(2.5rem, 11vw, 3rem);
+  }
+
+  .artifacts-browser .artifacts-page__intro p {
+    font-size: 1rem;
+  }
+
+  .artifact-collection {
+    margin-top: 1.25rem;
+  }
+
+  .artifact-browser__sidebar {
+    padding: 1rem;
+  }
+
+  .artifact-filters {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 0.75rem;
+  }
+
+  .artifact-results {
+    margin-top: 1rem;
+  }
+
+  .artifact-list {
+    max-height: 12rem;
   }
 
   .hero h1 {
