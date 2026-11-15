@@ -768,7 +768,7 @@ function App() {
           />
           <span>Danta Labs</span>
         </Link>
-        <p>Artifacts of the Past · Project in Progress</p>
+        <p className="site-footer__project">Artifacts of the Past</p>
         <a className="back-to-top" href="#top">
           Back to the Start
         </a>
