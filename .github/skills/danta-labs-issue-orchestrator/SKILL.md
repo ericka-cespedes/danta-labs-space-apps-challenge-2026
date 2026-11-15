@@ -10,8 +10,7 @@ disable-model-invocation: false
 
 Organize work in `ericka-cespedes/danta-labs-space-apps-challenge-2026`
 using ordinary GitHub issues and native sub-issue relationships.
-This skill organizes issues; it does not implement code, run tests, open PRs,
-or execute the implementation orchestrator.
+This skill organizes issues; it does not implement code, run tests, or open PRs.
 
 ## Target shape
 
@@ -143,10 +142,8 @@ State `Project: not required`.
 Only claim completion when every approved creation, edit, and relationship has
 been read back successfully. Verification-only requests perform no writes.
 
-Offer the next step without invoking it automatically:
-`/issue-planner <task-issue-url>` for a scoped delivery task, followed by
-`/orchestrator docs-local/issue-<task-number>-pbis.md` after plan review.
-These remain separate steps; creating the hierarchy does not implement it.
+Offer a separate implementation task only after the issue hierarchy is
+approved. Creating the hierarchy does not implement it.
 
 ## Usage
 

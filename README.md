@@ -10,7 +10,7 @@
 
 Danta Labs is a six-member team from Costa Rica taking part in the [NASA Space Apps Challenge 2026](https://www.spaceappschallenge.org/). Our name comes from the danta (tapir), an animal native to Costa Rica, and reflects our connection to nature, science, space exploration, and creativity.
 
-Our game, **Artifacts of the Past**, is being developed during the hackathon as a tabletop experience that connects physical play with stories about space exploration equipment.
+Our game, **Artifacts of the Past**, is a physical board game with a digital tabletop experience that connects players with stories about space exploration equipment.
 
 ### The Challenge
 
@@ -31,7 +31,11 @@ We hope to connect young space enthusiasts with the history, scientific discover
 
 ### Project Status
 
-**In progress** — We are currently participating in the NASA Space Apps Challenge 2026. The web app is an early prototype; its features and experience are evolving during the hackathon.
+**Developed** — We created a physical tabletop board game and a digital tabletop experience for the NASA Space Apps Challenge 2026. The website presents the project and provides access to its digital experience.
+
+### Submission Preparation
+
+See the [NASA Space Apps Submission Checklist](docs/NASA_SPACE_APPS_SUBMISSION.md) for the project-page deliverables, demo requirements, source and AI disclosures, and final submission steps.
 
 ### Getting Started
 
