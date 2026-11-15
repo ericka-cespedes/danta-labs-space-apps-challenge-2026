@@ -1155,6 +1155,11 @@ h2 {
   margin: 0;
 }
 
+.site-footer__project {
+  /* Preserve the original footer wrapping after shortening the label. */
+  min-width: min(100%, 17.75em);
+}
+
 .image-credit {
   max-width: 42rem;
   color: var(--paper);
