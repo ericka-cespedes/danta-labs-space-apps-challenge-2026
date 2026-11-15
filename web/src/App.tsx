@@ -60,6 +60,65 @@ const pages = [
   { path: '/contact', label: 'Contact' },
 ]
 
+const team: {
+  name: string
+  role?: string
+  work?: string | null
+  education?: { degree?: string; major: string; university: string; inProgress?: boolean }[]
+  interests?: string
+  linkedin?: string | null
+  github?: string
+}[] = [
+  {
+    name: 'Celeste Alpizar',
+    role: 'Team Leader',
+    work: 'QA Engineer',
+    education: [{ major: 'Quality Engineering', university: 'Hispanoamerican University', inProgress: true }],
+    interests: 'Dogs, arts & crafts, anime',
+    linkedin: null,
+  },
+  {
+    name: 'Ericka Cespedes',
+    work: 'Cloud Platform Engineer II at Procter & Gamble',
+    education: [{ degree: 'BSc', major: 'Computer Engineering', university: 'Costa Rica Institute of Technology' }],
+    interests: 'Data & AI, tennis, languages',
+    linkedin: 'https://www.linkedin.com/in/ericka-cespedes-17b30620a/',
+    github: 'https://github.com/ericka-cespedes',
+  },
+  {
+    name: 'Jorge Sobalvarro',
+    work: 'Product Owner',
+    education: [{ major: 'Industrial Engineering', university: 'Fidelitas University', inProgress: true }],
+    interests: 'Board games, video games, fencing',
+    linkedin: null,
+  },
+  {
+    name: 'Luis Chaverri',
+    work: 'Professor',
+    education: [
+      { degree: 'BSc', major: 'Teaching of Mathematics with Technological Environments', university: 'Costa Rica Institute of Technology' },
+      { degree: 'MSc', major: 'Computer Engineering', university: 'University of Costa Rica', inProgress: true },
+    ],
+    interests: 'Board games, video games, cats',
+    linkedin: null,
+  },
+  {
+    name: 'Pedro Santana',
+    work: 'Structural Engineer at Dean Tropical Metalico',
+    education: [{ degree: 'Licenciatura', major: 'Civil Engineering', university: 'University of Costa Rica' }],
+    interests: 'Video games, music, literature',
+    linkedin: null,
+    github: 'https://github.com/spiternasz',
+  },
+  {
+    name: 'Sally Sanchez',
+    work: null,
+    education: [{ major: 'Quality Engineering', university: 'Hispanoamerican University', inProgress: true }],
+    interests: 'Music, cooking, nature',
+    linkedin: null,
+  },
+]
+
 function useActiveRoute() {
   const [activeRoute, setActiveRoute] = useState<RouteId>('project')
 
@@ -284,18 +343,86 @@ function HomePage() {
           </p>
         </div>
         <ul className="team-list">
-          <li>
-            <span>Celeste Alpizar</span>
-            <span className="team-list__role">Team Leader</span>
-          </li>
-          <li><span>Ericka Cespedes</span></li>
-          <li><span>Jorge Sobalvarro</span></li>
-          <li><span>Luis Chaverri</span></li>
-          <li><span>Pedro Santana</span></li>
-          <li><span>Sally Sanchez</span></li>
+          {team.map(({ name, role }) => (
+            <li key={name}>
+              <span>{name}</span>
+              {role && <span className="team-list__role">{role}</span>}
+            </li>
+          ))}
         </ul>
       </section>
     </>
+  )
+}
+
+function AboutPage() {
+  return (
+    <div className="about-page">
+      <section className="about-intro" aria-labelledby="about-title">
+        <h1 id="about-title">Meet Danta Labs</h1>
+        <div className="about-intro__copy">
+          <p>
+            We’re a team from Costa Rica. Our name comes from the danta, or
+            tapir, an animal native to Costa Rica that reflects our connection
+            to nature, science, space exploration, and creativity.
+          </p>
+          <p>
+            We love tabletop games, so for the NASA Space Apps Challenge 2026
+            we chose to create Artifacts of the Past: an engaging,
+            story-driven educational experience for school-age and casual
+            space enthusiasts, exploring the stories of space exploration
+            hardware on the Moon, Mars, and beyond.
+          </p>
+        </div>
+      </section>
+
+      <section className="about-team" aria-labelledby="about-team-title">
+        <div className="about-team__heading">
+          <h2 id="about-team-title">The People Behind the Project</h2>
+          <p>Meet the team behind Artifacts of the Past.</p>
+        </div>
+        <ul className="about-team__list">
+          {team.map(({ name, role, work, education, interests, linkedin, github }) => (
+            <li className="about-member" key={name}>
+              <div className="about-member__name">
+                <h3>{name}</h3>
+                {role && <span className="team-list__role">{role}</span>}
+              </div>
+              <dl className={`about-member__details${work === null ? ' about-member__details--no-work' : ''}`}>
+                {[
+                  ...(work === null ? [] : [{ label: 'Work', value: work }]),
+                  {
+                    label: 'Education',
+                    value: education?.map(({ degree, major, university, inProgress }) => (
+                      <span className="about-member__education" key={`${major}-${university}`}>
+                        <strong>{degree ? `${degree} · ${major}` : major}</strong>
+                        {inProgress && ' (in progress)'}
+                        <span className="about-member__university">{university}</span>
+                      </span>
+                    )),
+                  },
+                  { label: 'Interests', value: interests },
+                  ...(linkedin || github ? [{
+                    label: 'Links',
+                    value: (
+                      <span className="about-member__links">
+                        {linkedin && <a href={linkedin}>LinkedIn</a>}
+                        {github && <a href={github}>GitHub</a>}
+                      </span>
+                    ),
+                  }] : linkedin === undefined ? [{ label: 'LinkedIn', value: undefined }] : []),
+                ].map(({ label, value }) => (
+                  <div key={label}>
+                    <dt>{label}</dt>
+                    <dd>{value ?? 'To be added'}</dd>
+                  </div>
+                ))}
+              </dl>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
   )
 }
 
@@ -543,7 +670,7 @@ function App() {
           <Route path="/game" element={<PendingPage title="How to Play" />} />
           <Route path="/artifacts" element={<ArtifactsPage />} />
           <Route path={exampleArtifactPath} element={<ExampleArtifactPage />} />
-          <Route path="/about" element={<PendingPage title="About Us" />} />
+          <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="*" element={<PendingPage title="Page Not Found" />} />
         </Routes>
