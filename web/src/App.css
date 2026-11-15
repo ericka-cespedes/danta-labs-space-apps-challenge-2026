@@ -250,13 +250,6 @@ main,
   object-fit: cover;
 }
 
-.artifact-image figcaption {
-  padding: 0.7rem 1rem;
-  background: var(--deep);
-  color: var(--paper);
-  font-size: 0.9rem;
-}
-
 .artifact-eyebrow {
   color: var(--cyan);
   font-size: 0.95rem;
@@ -285,10 +278,6 @@ main,
 
 .artifacts-browser .artifacts-page__intro p {
   margin: 0 0 1rem;
-}
-
-.artifacts-browser .artifacts-page__intro .artifact-preview-note {
-  font-size: 0.95rem;
 }
 
 .artifact-collection {
@@ -472,6 +461,10 @@ main,
   gap: clamp(2rem, 5vw, 5rem);
   align-items: start;
   margin-top: clamp(2rem, 5vw, 4rem);
+}
+
+.artifact-detail__layout > * {
+  min-width: 0;
 }
 
 .artifact-detail__heading {
@@ -1072,7 +1065,7 @@ h2 {
   .contact-page,
   .artifact-browser__layout,
   .artifact-detail__layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .artifacts-browser {
