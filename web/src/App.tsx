@@ -423,23 +423,6 @@ function HowToPlayPage() {
         the game makes learning interactive and fun, inviting young space
         enthusiasts to connect with the history of exploration.
       </p>
-      <section className="rulebook-setup" aria-labelledby="setup-title">
-        <h2 id="setup-title">Get Set Up</h2>
-        <ol>
-          <li>
-            <strong>Prepare the main board.</strong> Roll 16 resource dice and
-            place them in their marked areas.
-          </li>
-          <li>
-            <strong>Sort the artifact decks.</strong> Set out the Moon, Mars,
-            and Deep Space cards separately.
-          </li>
-          <li>
-            <strong>Gather your pieces.</strong> Each player takes a personal
-            board, 5 meeples, and 12 cubes.
-          </li>
-        </ol>
-      </section>
       <div className="rulebook-book">
         <div aria-hidden="true" className="rulebook-book__spine" />
         <div className="rulebook-book__pages">
