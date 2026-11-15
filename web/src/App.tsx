@@ -6,6 +6,7 @@ import './App.css'
 type RouteId = 'project' | 'play' | 'team'
 
 const exampleArtifactPath = '/artifacts/apollo-11-lunar-module'
+const rulebookUrl = 'https://www.canva.com/design/DAHa7ZYACmM/IkiN-ViQKcyQkHkvkFQ1Fg/view'
 
 const artifactCategories = ['All', 'Moon', 'Mars', 'Deep Space']
 type Artifact = {
@@ -279,9 +280,9 @@ function HomePage() {
           <div className="project-story__lead">
             <h2>Space Equipment Has Stories Beyond Its Mission.</h2>
             <p>
-              Danta Labs is creating a tabletop experience for young space
-              enthusiasts to connect with the discoveries and continuing
-              legacy of exploration equipment.
+              We created a board game because learning is more fun when you
+              play. It gives school-age space fans an interactive way to
+              explore the stories behind space equipment.
             </p>
           </div>
 
@@ -306,27 +307,28 @@ function HomePage() {
         data-map-stage
         id="play"
       >
-        <div className="section-heading">
+        <div className="play-section__copy">
           <h2 id="play-title">How to Play</h2>
-          <span className="status-pill status-pill--preview">
-            Rules in Development
-          </span>
-        </div>
-        <div className="play-section__body">
-          <p className="play-section__lead">
-            The tabletop concept is taking shape, but the rules are not final
-            yet.
-          </p>
           <p>
-            We’ll add the confirmed setup, play sequence, and goal when the
-            team has decided them. For now, this is a preview of the project,
-            not a set of instructions.
+            Explore space-exploration stories through a hands-on tabletop
+            game. Discover the science and legacy behind the artifacts—because
+            learning is more fun when you play.
           </p>
+          <Link className="action-pill action-pill--primary play-section__rulebook-link" to="/game">
+            Open the Rulebook
+          </Link>
         </div>
-        <p className="play-section__note">
-          What is confirmed: physical play will connect with stories about
-          space exploration equipment and its scientific legacy.
-        </p>
+        <figure className="play-section__cover">
+          <img
+            alt="An astronaut beside a lunar module on the Moon beneath a starry sky."
+            src="/rulebook-cover-art.jpg"
+          />
+          <figcaption className="play-section__cover-title">
+            <span>Artifacts of the Past</span>
+            <span>Board Game Rule Book</span>
+            <span>Danta Labs · NASA Space Apps Challenge</span>
+          </figcaption>
+        </figure>
       </section>
 
       <section
@@ -367,11 +369,12 @@ function AboutPage() {
             to nature, science, space exploration, and creativity.
           </p>
           <p>
-            We love tabletop games, so for the NASA Space Apps Challenge 2026
-            we chose to create Artifacts of the Past: an engaging,
-            story-driven educational experience for school-age and casual
-            space enthusiasts, exploring the stories of space exploration
-            hardware on the Moon, Mars, and beyond.
+            For the NASA Space Apps Challenge 2026, we created Artifacts of the
+            Past, a story-driven educational board game for school-age and
+            casual space enthusiasts. We chose a board game because it makes
+            storytelling simple, fun, and interactive—learning is more
+            enjoyable when you can play. The game explores stories of space
+            exploration hardware on the Moon, Mars, and beyond.
           </p>
         </div>
       </section>
@@ -396,7 +399,7 @@ function AboutPage() {
                     value: education?.map(({ degree, major, university, inProgress }) => (
                       <span className="about-member__education" key={`${major}-${university}`}>
                         <strong>{degree ? `${degree} · ${major}` : major}</strong>
-                        {inProgress && ' (in progress)'}
+                        {inProgress && ' (In Progress)'}
                         <span className="about-member__university">{university}</span>
                       </span>
                     )),
@@ -432,6 +435,65 @@ function PendingPage({ title }: { title: string }) {
       <h1 id="page-title">{title}</h1>
       <p>This page is in development.</p>
       <Link className="action-link" to="/">Return to the Home Page</Link>
+    </section>
+  )
+}
+
+function HowToPlayPage() {
+  return (
+    <section className="rulebook-page" aria-labelledby="page-title">
+      <Link className="action-link" to="/">Back to the Project</Link>
+      <div className="rulebook-page__heading">
+        <h1 id="page-title">How to Play</h1>
+        <span className="status-pill status-pill--preview">Play Guide</span>
+      </div>
+      <p className="rulebook-page__intro">
+        Artifacts of the Past brings space-science stories to the tabletop.
+        Players explore the discoveries and lasting legacy of space exploration
+        equipment from the Moon, Mars, and deep space. Through hands-on play,
+        the game makes learning interactive and fun, inviting young space
+        enthusiasts to connect with the history of exploration.
+      </p>
+      <section className="rulebook-setup" aria-labelledby="setup-title">
+        <h2 id="setup-title">Get Set Up</h2>
+        <ol>
+          <li>
+            <strong>Prepare the main board.</strong> Roll 16 resource dice and
+            place them in their marked areas.
+          </li>
+          <li>
+            <strong>Sort the artifact decks.</strong> Set out the Moon, Mars,
+            and Deep Space cards separately.
+          </li>
+          <li>
+            <strong>Gather your pieces.</strong> Each player takes a personal
+            board, 5 meeples, and 12 cubes.
+          </li>
+        </ol>
+      </section>
+      <div className="rulebook-book">
+        <div aria-hidden="true" className="rulebook-book__spine" />
+        <div className="rulebook-book__pages">
+          <div className="rulebook-book__header">
+            <span>Artifacts of the Past</span>
+            <span>Rulebook</span>
+          </div>
+          <div className="rulebook-book__viewer">
+            <iframe
+              allowFullScreen
+              loading="lazy"
+              src={`${rulebookUrl}?embed`}
+              title="Artifacts of the Past rulebook"
+            />
+          </div>
+          <div className="rulebook-book__footer">
+            <span>Live Edition · Canva</span>
+            <a href={rulebookUrl} rel="noreferrer" target="_blank">
+              Open in Canva
+            </a>
+          </div>
+        </div>
+      </div>
     </section>
   )
 }
@@ -663,7 +725,7 @@ function App() {
       <main className={isHome ? 'home-page' : undefined} id="main" tabIndex={-1}>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/game" element={<PendingPage title="How to Play" />} />
+          <Route path="/game" element={<HowToPlayPage />} />
           <Route path="/artifacts" element={<ArtifactsPage />} />
           <Route path={exampleArtifactPath} element={<ExampleArtifactPage />} />
           <Route path="/about" element={<AboutPage />} />
