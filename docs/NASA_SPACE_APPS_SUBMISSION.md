@@ -16,8 +16,6 @@ We developed **Artifacts of the Past**, a tabletop board game with both a physic
 
 The guide requires a public link to an English-language demo. Create either a video of no more than 30 seconds or a slide deck of no more than 7 slides, then replace this placeholder:
 
-Use the [demo script and slide outline](../docs-local/nasa-space-apps-demo-preparation.md) to prepare the demo.
-
 **Video Demo:** `[ADD THE PUBLIC VIDEO OR SLIDE-DECK URL]`
 
 **PowerPoint Presentation**: `[ADD THE PPT URL]`
