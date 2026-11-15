@@ -1,51 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link, NavLink, Route, Routes, useLocation } from 'react-router'
-import artifactPlaceholder from './assets/artifact-placeholder.svg'
+import { Link, NavLink, Route, Routes, useLocation, useParams } from 'react-router'
+import { artifactLocations, artifacts } from './data/artifacts'
 import './App.css'
 
 type RouteId = 'project' | 'play' | 'team'
 
-const exampleArtifactPath = '/artifacts/apollo-11-lunar-module'
 const rulebookUrl = 'https://www.canva.com/design/DAHa7ZYACmM/IkiN-ViQKcyQkHkvkFQ1Fg/view'
-
-const artifactCategories = ['All', 'Moon', 'Mars', 'Deep Space']
-type Artifact = {
-  id: string
-  name: string
-  category: string
-  label: string
-  path?: string
-  image: string
-  story: string
-  reference: string
-}
-
-const artifacts: Artifact[] = [
-  {
-    id: 'apollo-11-lunar-module',
-    name: 'Apollo 11 Lunar Module',
-    category: 'Moon',
-    label: 'Example entry',
-    path: exampleArtifactPath,
-    image: artifactPlaceholder,
-    story: 'Placeholder text. The team will add the artifact’s story after the content is approved.',
-    reference: 'Source to be provided by the team.',
-  },
-  ...Array.from({ length: 41 }, (_, index) => {
-    const category = index < 13 ? 'Moon' : index < 27 ? 'Mars' : 'Deep Space'
-    const number = index < 13 ? index + 1 : index < 27 ? index - 12 : index - 26
-
-    return {
-      id: `placeholder-${index + 1}`,
-      name: `${category} placeholder ${String(number).padStart(2, '0')}`,
-      category,
-      label: 'Placeholder entry',
-      image: artifactPlaceholder,
-      story: 'Placeholder text. The team will add the artifact’s story after the content is approved.',
-      reference: 'Source to be provided by the team.',
-    }
-  }),
-]
 
 const sectionRoutes: { id: RouteId; label: string }[] = [
   { id: 'project', label: 'The Project' },
@@ -498,23 +458,22 @@ function HowToPlayPage() {
   )
 }
 
-function ArtifactImage({ src = artifactPlaceholder }: { src?: string }) {
+function ArtifactImage({ src, name }: { src: string; name: string }) {
   return (
     <figure className="artifact-image">
-      <img alt="" src={src} />
-      <figcaption>Placeholder image · Not a historical photograph</figcaption>
+      <img alt={name} src={src} />
     </figure>
   )
 }
 
 function ArtifactsPage() {
   const [query, setQuery] = useState('')
-  const [category, setCategory] = useState('All')
-  const [selectedId, setSelectedId] = useState('apollo-11-lunar-module')
+  const [location, setLocation] = useState('All')
+  const [selectedId, setSelectedId] = useState(artifacts[0]?.id ?? '')
   const search = query.trim().toLocaleLowerCase()
   const matchingArtifacts = artifacts.filter((artifact) =>
-    (category === 'All' || artifact.category === category) &&
-    artifact.name.toLocaleLowerCase().includes(search),
+    (location === 'All' || artifact.location === location) &&
+    `${artifact.name} ${artifact.type}`.toLocaleLowerCase().includes(search),
   )
   const selectedArtifact = matchingArtifacts.find((artifact) => artifact.id === selectedId)
     ?? matchingArtifacts[0]
@@ -524,44 +483,42 @@ function ArtifactsPage() {
       <div className="artifacts-page__intro">
         <h1 id="page-title">Artifact Encyclopedia</h1>
         <p>
-          Explore the stories behind space exploration equipment. The artifact
-          collection and its sources are still being prepared.
+          Explore the stories behind space exploration equipment across the Moon,
+          Mars, and deep space. Search by artifact name or type, or filter by location.
         </p>
-        <p className="artifact-preview-note">The list includes placeholder entries to preview the collection.</p>
-        <span className="status-pill">Preview · Content in Development</span>
       </div>
-      <section className="artifact-collection" aria-label="Artifact collection">
+      <section className="artifact-collection" aria-label="Artifact Collection">
         <div className="artifact-browser__layout">
           <div className="artifact-browser__sidebar">
             <div className="artifact-filters">
               <div>
-                <label htmlFor="artifact-search">Search artifacts</label>
+                <label htmlFor="artifact-search">Search Artifacts</label>
                 <input
                   id="artifact-search"
                   type="search"
-                  placeholder="Search by name"
+                  placeholder="Search by Name or Type"
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
                 />
               </div>
               <div>
-                <label htmlFor="artifact-category">Category</label>
+                <label htmlFor="artifact-location">Location</label>
                 <select
-                  id="artifact-category"
-                  value={category}
-                  onChange={(event) => setCategory(event.target.value)}
+                  id="artifact-location"
+                  value={location}
+                  onChange={(event) => setLocation(event.target.value)}
                 >
-                  {artifactCategories.map((option) => (
-                    <option key={option} value={option}>{option === 'All' ? 'All Categories' : option}</option>
+                  {['All', ...artifactLocations].map((option) => (
+                    <option key={option} value={option}>{option === 'All' ? 'All Locations' : option}</option>
                   ))}
                 </select>
               </div>
             </div>
             <p className="artifact-results" role="status">
-              {matchingArtifacts.length} {matchingArtifacts.length === 1 ? 'preview entry' : 'preview entries'} found
+              {matchingArtifacts.length} {matchingArtifacts.length === 1 ? 'artifact' : 'artifacts'} found
             </p>
             {matchingArtifacts.length > 0 ? (
-              <ul className="artifact-list" aria-label="Matching artifacts">
+              <ul className="artifact-list" aria-label="Matching Artifacts">
                 {matchingArtifacts.map((artifact) => (
                   <li key={artifact.id}>
                     <button
@@ -571,38 +528,41 @@ function ArtifactsPage() {
                       onClick={() => setSelectedId(artifact.id)}
                     >
                       <span>{artifact.name}</span>
-                      <span>{artifact.category} · {artifact.label}</span>
+                      <span>{artifact.location} · {artifact.type}</span>
                     </button>
                   </li>
                 ))}
               </ul>
             ) : (
-              <p className="artifact-empty">No preview entries match your search and category. Try a different search or category.</p>
+              <p className="artifact-empty">No artifacts match your search and location. Try changing either filter.</p>
             )}
           </div>
           {selectedArtifact ? (
             <article className="artifact-showcase" aria-labelledby="selected-artifact-title">
-              <ArtifactImage src={selectedArtifact.image} />
+              <ArtifactImage src={selectedArtifact.image} name={selectedArtifact.name} />
               <div className="artifact-showcase__content">
                 <h2 id="selected-artifact-title">{selectedArtifact.name}</h2>
-                <p className="artifact-showcase__meta">{selectedArtifact.category} · {selectedArtifact.label} · Not yet approved</p>
-                <p>This is a design preview. Its image, description, and reference are placeholders.</p>
+                <p className="artifact-showcase__meta">{selectedArtifact.location} · {selectedArtifact.type}</p>
                 <section aria-labelledby="selected-artifact-story">
                   <h3 id="selected-artifact-story">The Story</h3>
                   <p>{selectedArtifact.story}</p>
                 </section>
                 <section aria-labelledby="selected-artifact-reference">
                   <h3 id="selected-artifact-reference">Reference</h3>
-                  <p>{selectedArtifact.reference}</p>
+                  <p>
+                    <a href={selectedArtifact.reference} target="_blank" rel="noopener noreferrer">
+                      View Source
+                    </a>
+                  </p>
                 </section>
-                {selectedArtifact.path && (
-                  <Link className="artifact-showcase__link" to={selectedArtifact.path}>Open direct page <span aria-hidden="true">→</span></Link>
-                )}
+                <Link className="artifact-showcase__link" to={`/artifacts/${selectedArtifact.id}`}>
+                  Open Artifact Page
+                </Link>
               </div>
             </article>
           ) : (
             <div className="artifact-showcase artifact-showcase--empty">
-              <p>Choose a preview entry to see its image, story, and reference here.</p>
+              <p>Choose an artifact to see its image, story, and source here.</p>
             </div>
           )}
         </div>
@@ -611,25 +571,41 @@ function ArtifactsPage() {
   )
 }
 
-function ExampleArtifactPage() {
+function ArtifactDetailPage() {
+  const { artifactId } = useParams<{ artifactId: string }>()
+  const artifact = artifacts.find(({ id }) => id === artifactId)
+
+  if (!artifact) {
+    return (
+      <section className="pending-page" aria-labelledby="page-title">
+        <h1 id="page-title">Artifact Not Found</h1>
+        <p>This artifact could not be found in the encyclopedia.</p>
+        <Link className="action-link" to="/artifacts">Return to the Artifact Encyclopedia</Link>
+      </section>
+    )
+  }
+
   return (
     <article className="artifacts-page artifact-detail" aria-labelledby="page-title">
       <Link className="action-link" to="/artifacts">Back to the Artifact Encyclopedia</Link>
       <div className="artifact-detail__layout">
-        <ArtifactImage />
+        <ArtifactImage src={artifact.image} name={artifact.name} />
         <div className="artifact-detail__content">
           <div className="artifact-detail__heading">
-            <h1 id="page-title">Apollo 11 Lunar Module</h1>
-            <p className="artifact-eyebrow">Moon · Example entry · Not yet approved</p>
-            <p>This page is a design preview. Its image, description, and reference are placeholders.</p>
+            <h1 id="page-title">{artifact.name}</h1>
+            <p className="artifact-eyebrow">{artifact.location} · {artifact.type}</p>
           </div>
           <section aria-labelledby="artifact-story">
             <h2 id="artifact-story">The Story</h2>
-            <p>Placeholder text. The team will add the artifact’s story after the content is approved.</p>
+            <p>{artifact.story}</p>
           </section>
           <section aria-labelledby="artifact-reference">
             <h2 id="artifact-reference">Reference</h2>
-            <p>Source to be provided by the team.</p>
+            <p>
+              <a href={artifact.reference} target="_blank" rel="noopener noreferrer">
+                View Source
+              </a>
+            </p>
           </section>
         </div>
       </div>
@@ -671,8 +647,12 @@ function App() {
 
   useEffect(() => {
     const page = pages.find(({ path }) => path === pathname)
-    document.title = pathname === exampleArtifactPath
-      ? 'Apollo 11 Lunar Module Preview | Danta Labs'
+    const artifactId = pathname.startsWith('/artifacts/')
+      ? pathname.slice('/artifacts/'.length)
+      : ''
+    const artifact = artifacts.find(({ id }) => id === artifactId)
+    document.title = artifact
+      ? `${artifact.name} | Danta Labs`
       : page && pathname !== '/'
       ? `${page.label} | Danta Labs`
       : pathname === '/'
@@ -727,7 +707,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/game" element={<HowToPlayPage />} />
           <Route path="/artifacts" element={<ArtifactsPage />} />
-          <Route path={exampleArtifactPath} element={<ExampleArtifactPage />} />
+          <Route path="/artifacts/:artifactId" element={<ArtifactDetailPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="*" element={<PendingPage title="Page Not Found" />} />
