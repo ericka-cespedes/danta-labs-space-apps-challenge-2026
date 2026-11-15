@@ -56,6 +56,10 @@ npm run dev
 
 Open the local URL printed by Vite in your terminal.
 
+#### Contact
+
+The contact page uses a `mailto:` link to open the visitor’s email app and address a message to `dantalabs.boardgame@gmail.com`.
+
 #### Available commands
 
 Run these commands from the `web` directory:

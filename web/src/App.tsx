@@ -580,27 +580,23 @@ function ContactPage() {
     <section className="contact-page" aria-labelledby="page-title">
       <div className="contact-page__intro">
         <h1 id="page-title">Contact Danta Labs</h1>
-        <p>Have a question about Artifacts of the Past? Our contact form is still in development.</p>
-        <p className="contact-page__notice" role="status">
-          We are not accepting submissions yet. Please check back later.
-        </p>
-        <p className="contact-page__placeholder">
-          Recipient placeholder: contact@example.com (not an active contact address)
+        <p>Have a question about Artifacts of the Past? We’d love to hear from you.</p>
+      </div>
+      <div className="contact-page__email">
+        <a
+          className="action-pill action-pill--primary"
+          href="mailto:dantalabs.boardgame@gmail.com?subject=Message%20for%20Danta%20Labs"
+        >
+          Email Danta Labs
+        </a>
+        <p>
+          If your email app doesn’t open, copy our address into your preferred email service:{' '}
+          <a className="contact-page__email-link" href="mailto:dantalabs.boardgame@gmail.com">
+            dantalabs.boardgame@gmail.com
+          </a>
+          .
         </p>
       </div>
-      <form className="contact-form" aria-label="Contact form preview">
-        <fieldset disabled aria-describedby="contact-form-note">
-          <legend>Message the Team</legend>
-          <p id="contact-form-note">The form will be available once message delivery is set up.</p>
-          <label htmlFor="contact-name">Name</label>
-          <input id="contact-name" name="name" autoComplete="name" required />
-          <label htmlFor="contact-email">Email</label>
-          <input id="contact-email" name="email" type="email" autoComplete="email" required />
-          <label htmlFor="contact-message">Message</label>
-          <textarea id="contact-message" name="message" rows={6} required />
-          <button className="action-pill action-pill--primary" type="submit">Send Message</button>
-        </fieldset>
-      </form>
     </section>
   )
 }
