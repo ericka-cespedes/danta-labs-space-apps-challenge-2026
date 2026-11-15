@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link, NavLink, Route, Routes, useLocation, useParams } from 'react-router'
+import { Link, NavLink, Route, Routes, useLocation, useParams, useSearchParams } from 'react-router'
 import { artifactLocations, artifacts } from './data/artifacts'
 import './App.css'
 
@@ -469,14 +469,47 @@ function ArtifactImage({ src, name }: { src: string; name: string }) {
 function ArtifactsPage() {
   const [query, setQuery] = useState('')
   const [location, setLocation] = useState('All')
-  const [selectedId, setSelectedId] = useState(artifacts[0]?.id ?? '')
+  const [searchParams, setSearchParams] = useSearchParams()
+  const listRef = useRef<HTMLUListElement>(null)
+  const selectedId = searchParams.get('artifact')
   const search = query.trim().toLocaleLowerCase()
   const matchingArtifacts = artifacts.filter((artifact) =>
     (location === 'All' || artifact.location === location) &&
     `${artifact.name} ${artifact.type}`.toLocaleLowerCase().includes(search),
   )
-  const selectedArtifact = matchingArtifacts.find((artifact) => artifact.id === selectedId)
-    ?? matchingArtifacts[0]
+  const selectedArtifact = selectedId === null
+    ? artifacts[0]
+    : artifacts.find((artifact) => artifact.id === selectedId)
+
+  useEffect(() => {
+    const list = listRef.current
+    const selected = list?.querySelector<HTMLButtonElement>('[aria-pressed="true"]')
+    if (!list || !selected) return
+
+    function revealSelection() {
+      if (!list || !selected) return
+      const listBounds = list.getBoundingClientRect()
+      const selectedBounds = selected.getBoundingClientRect()
+      if (selectedBounds.top < listBounds.top) {
+        list.scrollTop += selectedBounds.top - listBounds.top - 8
+      } else if (selectedBounds.bottom > listBounds.bottom) {
+        list.scrollTop += selectedBounds.bottom - listBounds.bottom + 8
+      }
+    }
+
+    revealSelection()
+    const observer = new ResizeObserver(revealSelection)
+    observer.observe(list)
+    observer.observe(selected)
+    return () => observer.disconnect()
+  }, [selectedId, query, location])
+
+  function selectArtifact(id: string) {
+    if (id === selectedId) return
+    const nextParams = new URLSearchParams(searchParams)
+    nextParams.set('artifact', id)
+    setSearchParams(nextParams)
+  }
 
   return (
     <section className="artifacts-page artifacts-browser" aria-labelledby="page-title">
@@ -517,15 +550,18 @@ function ArtifactsPage() {
             <p className="artifact-results" role="status">
               {matchingArtifacts.length} {matchingArtifacts.length === 1 ? 'artifact' : 'artifacts'} found
             </p>
+            {selectedArtifact && !matchingArtifacts.includes(selectedArtifact) && matchingArtifacts.length > 0 && (
+              <p className="artifact-filter-notice">Selected artifact is outside your filters.</p>
+            )}
             {matchingArtifacts.length > 0 ? (
-              <ul className="artifact-list" aria-label="Matching Artifacts">
+              <ul className="artifact-list" aria-label="Matching Artifacts" ref={listRef}>
                 {matchingArtifacts.map((artifact) => (
                   <li key={artifact.id}>
                     <button
                       type="button"
                       className="artifact-list__item"
                       aria-pressed={selectedArtifact?.id === artifact.id}
-                      onClick={() => setSelectedId(artifact.id)}
+                      onClick={() => selectArtifact(artifact.id)}
                     >
                       <span>{artifact.name}</span>
                       <span>{artifact.location} · {artifact.type}</span>
@@ -539,30 +575,27 @@ function ArtifactsPage() {
           </div>
           {selectedArtifact ? (
             <article className="artifact-showcase" aria-labelledby="selected-artifact-title">
-              <ArtifactImage src={selectedArtifact.image} name={selectedArtifact.name} />
-              <div className="artifact-showcase__content">
+              <div className="artifact-showcase__heading">
                 <h2 id="selected-artifact-title">{selectedArtifact.name}</h2>
                 <p className="artifact-showcase__meta">{selectedArtifact.location} · {selectedArtifact.type}</p>
-                <section aria-labelledby="selected-artifact-story">
-                  <h3 id="selected-artifact-story">The Story</h3>
-                  <p>{selectedArtifact.story}</p>
-                </section>
-                <section aria-labelledby="selected-artifact-reference">
-                  <h3 id="selected-artifact-reference">Reference</h3>
-                  <p>
-                    <a href={selectedArtifact.reference} target="_blank" rel="noopener noreferrer">
-                      View Source
-                    </a>
-                  </p>
-                </section>
-                <Link className="artifact-showcase__link" to={`/artifacts/${selectedArtifact.id}`}>
-                  Open Artifact Page
-                </Link>
+              </div>
+              <section className="artifact-showcase__story" aria-labelledby="selected-artifact-story">
+                <h3 id="selected-artifact-story">The Story</h3>
+                <p>{selectedArtifact.story}</p>
+              </section>
+              <div className="artifact-showcase__media">
+                <ArtifactImage src={selectedArtifact.image} name={selectedArtifact.name} />
+                <p className="artifact-showcase__reference">
+                  Reference:{' '}
+                  <a href={selectedArtifact.reference} target="_blank" rel="noopener noreferrer">
+                    {selectedArtifact.reference}
+                  </a>
+                </p>
               </div>
             </article>
           ) : (
             <div className="artifact-showcase artifact-showcase--empty">
-              <p>Choose an artifact to see its image, story, and source here.</p>
+              <p>Artifact not found. Choose an artifact from the list.</p>
             </div>
           )}
         </div>
