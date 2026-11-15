@@ -1,11 +1,20 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, Route, Routes, useLocation, useParams, useSearchParams } from 'react-router'
 import { artifactLocations, artifacts } from './data/artifacts'
+import type { Artifact } from './data/artifacts'
 import './App.css'
 
 type RouteId = 'project' | 'play' | 'team'
 
 const rulebookUrl = 'https://www.canva.com/design/DAHa7ZYACmM/IkiN-ViQKcyQkHkvkFQ1Fg/view'
+
+const getArtifactCategories = (artifact: Artifact) => artifact.categories ?? [artifact.type]
+const artifactTypes = [...new Set(artifacts.flatMap(getArtifactCategories))].sort((a, b) => a.localeCompare(b))
+const artifactLocationClasses: Record<(typeof artifactLocations)[number], string> = {
+  Moon: 'moon',
+  Mars: 'mars',
+  'Deep Space': 'deep-space',
+}
 
 const sectionRoutes: { id: RouteId; label: string }[] = [
   { id: 'project', label: 'The Project' },
@@ -469,13 +478,15 @@ function ArtifactImage({ src, name }: { src: string; name: string }) {
 function ArtifactsPage() {
   const [query, setQuery] = useState('')
   const [location, setLocation] = useState('All')
+  const [type, setType] = useState('All')
   const [searchParams, setSearchParams] = useSearchParams()
   const listRef = useRef<HTMLUListElement>(null)
   const selectedId = searchParams.get('artifact')
   const search = query.trim().toLocaleLowerCase()
   const matchingArtifacts = artifacts.filter((artifact) =>
     (location === 'All' || artifact.location === location) &&
-    `${artifact.name} ${artifact.type}`.toLocaleLowerCase().includes(search),
+    (type === 'All' || getArtifactCategories(artifact).includes(type)) &&
+    `${artifact.name} ${artifact.type} ${getArtifactCategories(artifact).join(' ')}`.toLocaleLowerCase().includes(search),
   )
   const selectedArtifact = selectedId === null
     ? artifacts[0]
@@ -502,7 +513,7 @@ function ArtifactsPage() {
     observer.observe(list)
     observer.observe(selected)
     return () => observer.disconnect()
-  }, [selectedId, query, location])
+  }, [selectedId, query, location, type])
 
   function selectArtifact(id: string) {
     if (id === selectedId) return
@@ -517,19 +528,21 @@ function ArtifactsPage() {
         <h1 id="page-title">Artifact Encyclopedia</h1>
         <p>
           Explore the stories behind space exploration equipment across the Moon,
-          Mars, and deep space. Search by artifact name or type, or filter by location.
+          Mars, and deep space.
+          <br />
+          Search by artifact name or category, or filter by location and category.
         </p>
       </div>
       <section className="artifact-collection" aria-label="Artifact Collection">
         <div className="artifact-browser__layout">
           <div className="artifact-browser__sidebar">
             <div className="artifact-filters">
-              <div>
+              <div className="artifact-filters__search">
                 <label htmlFor="artifact-search">Search Artifacts</label>
                 <input
                   id="artifact-search"
                   type="search"
-                  placeholder="Search by Name or Type"
+                  placeholder="Search name or category"
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
                 />
@@ -543,6 +556,19 @@ function ArtifactsPage() {
                 >
                   {['All', ...artifactLocations].map((option) => (
                     <option key={option} value={option}>{option === 'All' ? 'All Locations' : option}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label htmlFor="artifact-type">Category</label>
+                <select
+                  id="artifact-type"
+                  value={type}
+                  onChange={(event) => setType(event.target.value)}
+                >
+                  <option value="All">All Categories</option>
+                  {artifactTypes.map((option) => (
+                    <option key={option} value={option}>{option}</option>
                   ))}
                 </select>
               </div>
@@ -563,26 +589,29 @@ function ArtifactsPage() {
                       aria-pressed={selectedArtifact?.id === artifact.id}
                       onClick={() => selectArtifact(artifact.id)}
                     >
-                      <span>{artifact.name}</span>
-                      <span>{artifact.location} · {artifact.type}</span>
+                      {artifact.name}
                     </button>
                   </li>
                 ))}
               </ul>
             ) : (
-              <p className="artifact-empty">No artifacts match your search and location. Try changing either filter.</p>
+              <p className="artifact-empty">No artifacts match your search and filters. Try changing them.</p>
             )}
           </div>
           {selectedArtifact ? (
             <article className="artifact-showcase" aria-labelledby="selected-artifact-title">
-              <div className="artifact-showcase__heading">
-                <h2 id="selected-artifact-title">{selectedArtifact.name}</h2>
-                <p className="artifact-showcase__meta">{selectedArtifact.location} · {selectedArtifact.type}</p>
+              <div className="artifact-showcase__details">
+                <div className="artifact-showcase__heading">
+                  <h2 id="selected-artifact-title">{selectedArtifact.name}</h2>
+                  <p className={`artifact-showcase__meta artifact-showcase__meta--${artifactLocationClasses[selectedArtifact.location]}`}>
+                    {selectedArtifact.location} · {selectedArtifact.type}
+                  </p>
+                </div>
+                <section className="artifact-showcase__story" aria-labelledby="selected-artifact-story">
+                  <h3 id="selected-artifact-story">The Story</h3>
+                  <p>{selectedArtifact.story}</p>
+                </section>
               </div>
-              <section className="artifact-showcase__story" aria-labelledby="selected-artifact-story">
-                <h3 id="selected-artifact-story">The Story</h3>
-                <p>{selectedArtifact.story}</p>
-              </section>
               <div className="artifact-showcase__media">
                 <ArtifactImage src={selectedArtifact.image} name={selectedArtifact.name} />
                 <p className="artifact-showcase__reference">
