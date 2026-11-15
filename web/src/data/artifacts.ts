@@ -4,6 +4,7 @@ export type Artifact = {
   id: string
   name: string
   type: string
+  categories?: string[]
   location: (typeof artifactLocations)[number]
   image: string
   story: string
@@ -148,7 +149,7 @@ export const artifacts: Artifact[] = [
   },
   {
     id: "nasa-s-spirit-and-opportunity-rovers",
-    name: "NASAâ€™s Spirit and Opportunity rovers",
+    name: "NASA's Spirit and Opportunity Rovers",
     type: "Rover",
     location: "Mars",
     image: "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/07/rover2-1.jpg",
@@ -188,16 +189,17 @@ export const artifacts: Artifact[] = [
     type: "Orbiter",
     location: "Deep Space",
     image: "https://assets.science.nasa.gov/dynamicimage/assets/science/psd/solar/2023/09/d/dawn_bynumbers_3a_v5_1600.jpg?w=1600\u0026h=1289\u0026fit=clip\u0026crop=faces%2Cfocalpoint",
-    story: "Dawn was NASAâ€™s first truly interplanetary spaceship. The mission featured extended stays at two very different extraterrestrial bodies:Â  giant asteroid VestaÂ andÂ dwarf planet Ceres. Both small worlds reside in the debris-strewn main asteroid belt between Mars and Jupiter.",
+    story: "Dawn was NASA's first truly interplanetary spaceship. The mission featured extended stays at two very different extraterrestrial bodies: giant asteroid Vesta and dwarf planet Ceres. Both small worlds reside in the debris-strewn main asteroid belt between Mars and Jupiter.",
     reference: "https://science.nasa.gov/mission/dawn/",
   },
   {
     id: "near-shoemaker",
     name: "Near Shoemaker",
-    type: "Orbiter, makeshift lander",
+    type: "Orbiter, Lander (makeshift)",
+    categories: ["Orbiter", "Lander"],
     location: "Deep Space",
     image: "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/07/nearspacecraft.jpg",
-    story: "NASA\u0027s NEAR was the first spacecraft to orbit an asteroid and also was the first to land on one. NEARâ€™s primary goal was to rendezvous with the minor planet 433 Eros (an S-class asteroid),The spacecraft was the first to rely on solar cells for power during operations beyond Mars orbit. Remarkably, the spacecraft â€“ which was not designed as a lander â€“ survived touchdown on the asteroid and returned valuable data for about two weeks. Last contact with NEAR was Feb. 28, 2001, the spacecraft having succumbed to the extreme cold.",
+    story: "NASA\u0027s NEAR was the first spacecraft to orbit an asteroid and also was the first to land on one. NEAR's primary goal was to rendezvous with the minor planet 433 Eros (an S-class asteroid),The spacecraft was the first to rely on solar cells for power during operations beyond Mars orbit. Remarkably, the spacecraft – which was not designed as a lander – survived touchdown on the asteroid and returned valuable data for about two weeks. Last contact with NEAR was Feb. 28, 2001, the spacecraft having succumbed to the extreme cold.",
     reference: "https://science.nasa.gov/mission/near-shoemaker/",
   },
   {
@@ -242,7 +244,7 @@ export const artifacts: Artifact[] = [
     type: "Orbiter",
     location: "Deep Space",
     image: "https://assets.science.nasa.gov/content/dam/science/psd/solar/2023/07/69_IMG001942_768.jpg",
-    story: "Cassini-Huygens was one of the most ambitious missions ever launched into space. Loaded with an array of powerful instruments and cameras, the spacecraft was capable of taking accurate measurements and detailed images in a variety of atmospheric conditions and light spectra. Cassini\u0027s instruments can be classified as remote and microwave remote sensing instruments, and fields and particles instruments â€“ these were all designed to record significant data and take a variety of close-up measurements. The craft orbited Saturn from 2004 to 2017.",
+    story: "Cassini-Huygens was one of the most ambitious missions ever launched into space. Loaded with an array of powerful instruments and cameras, the spacecraft was capable of taking accurate measurements and detailed images in a variety of atmospheric conditions and light spectra. Cassini\u0027s instruments can be classified as remote and microwave remote sensing instruments, and fields and particles instruments – these were all designed to record significant data and take a variety of close-up measurements. The craft orbited Saturn from 2004 to 2017.",
     reference: "https://science.nasa.gov/mission/cassini/spacecraft/cassini-orbiter/",
   },
   {
@@ -287,7 +289,7 @@ export const artifacts: Artifact[] = [
     type: "Orbiter",
     location: "Moon",
     image: "https://scitechdaily.com/images/Lunar-Trailblazer.jpg",
-    story: "Lunar Trailblazer launched on Feb. 26, 2025, on a mission to orbit Earth\u0027s Moon to detect and map water on the surface. The mission aimed to improve our understanding of the Moonâ€™s water and geology by determining the form, abundance, and distribution of water across the lunar surface. Despite extensive efforts, mission operators were unable to establish two-way communications after losing contact with the spacecraft the day following its launch.",
+    story: "Lunar Trailblazer launched on Feb. 26, 2025, on a mission to orbit Earth\u0027s Moon to detect and map water on the surface. The mission aimed to improve our understanding of the Moon's water and geology by determining the form, abundance, and distribution of water across the lunar surface. Despite extensive efforts, mission operators were unable to establish two-way communications after losing contact with the spacecraft the day following its launch.",
     reference: "https://science.nasa.gov/mission/lunar-trailblazer/",
   },
   {
@@ -296,7 +298,7 @@ export const artifacts: Artifact[] = [
     type: "Special vehicle",
     location: "Moon",
     image: "https://space.skyrocket.de/img_sat/peregrine__3.jpg",
-    story: "The Peregrine was the first flight of NASAâ€™s commercial lunar delivery service carrying agency science and technology, as well as other customer payloads intended for the Moon. Astrobotic was the first commercial vendor to launch a mission to the Moon as part of NASAâ€™s CLPS (Commercial Lunar Payload Services) initiative, which aims to advance capabilities for science, exploration or commercial development of the Moon under the agencyâ€™s Artemis campaign.",
+    story: "The Peregrine was the first flight of NASA's commercial lunar delivery service carrying agency science and technology, as well as other customer payloads intended for the Moon. Astrobotic was the first commercial vendor to launch a mission to the Moon as part of NASA's CLPS (Commercial Lunar Payload Services) initiative, which aims to advance capabilities for science, exploration or commercial development of the Moon under the agency's Artemis campaign.",
     reference: "https://www.nasa.gov/news-release/nasa-science-astrobotic-peregrine-mission-one-concludes/",
   },
   {
