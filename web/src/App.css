@@ -135,6 +135,7 @@ main,
 .site-footer,
 .section-nav,
 .pending-page,
+.about-page,
 .project-section,
 .play-section,
 .team-section {
@@ -197,6 +198,129 @@ main,
   max-width: 65ch;
   font-size: 1.15rem;
   line-height: 1.5;
+}
+
+.about-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+  gap: 4rem;
+  padding-block: clamp(5rem, 11vw, 9rem);
+}
+
+.about-intro h1,
+.about-team h2 {
+  font-size: clamp(3rem, 6vw, 4.8rem);
+  line-height: 1;
+}
+
+.about-intro h1 {
+  max-width: 10ch;
+}
+
+.about-intro__copy p {
+  max-width: 65ch;
+  font-size: 1.15rem;
+  line-height: 1.5;
+}
+
+.about-intro__copy p + p {
+  margin-top: 1.25rem;
+}
+
+.about-team {
+  margin-bottom: 6rem;
+  border-radius: 1.75rem;
+  padding: clamp(2rem, 5vw, 4rem);
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.about-team__heading {
+  max-width: 45rem;
+  margin-bottom: 3rem;
+}
+
+.about-team h2 {
+  margin-bottom: 1rem;
+}
+
+.about-team__heading p {
+  margin-bottom: 0;
+  font-size: 1.15rem;
+  line-height: 1.5;
+}
+
+.about-team__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.about-member {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: 2rem;
+  border-top: 1px solid rgb(12 9 24 / 25%);
+  padding-block: 2rem;
+}
+
+.about-member__name h3 {
+  margin: 0 0 0.75rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.about-member__details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem 2rem;
+  margin: 0;
+}
+
+.about-member__details--no-work > div:first-child {
+  grid-column: 2;
+}
+
+.about-member__details--no-work > div:nth-child(2) {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.about-member__details dt {
+  margin-bottom: 0.25rem;
+  font-weight: 700;
+}
+
+.about-member__details dd {
+  margin: 0;
+}
+
+.about-member__education,
+.about-member__university {
+  display: block;
+}
+
+.about-member__education + .about-member__education {
+  margin-top: 0.75rem;
+}
+
+.about-member__university {
+  color: #453958;
+}
+
+.about-member__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+}
+
+.about-member__details a {
+  text-decoration: underline;
+}
+
+.about-member__details a:focus-visible {
+  outline-color: var(--ink);
 }
 
 .route-link {
@@ -573,6 +697,7 @@ h2 {
   .site-footer,
   .section-nav,
   .pending-page,
+  .about-page,
   .project-section,
   .play-section,
   .team-section {
@@ -597,6 +722,21 @@ h2 {
     min-height: 2.75rem;
     padding: 0.45rem 0.65rem;
     font-size: 0.86rem;
+  }
+
+  .about-intro,
+  .about-member {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .about-intro {
+    padding-block: 4rem 5rem;
+  }
+
+  .about-team {
+    margin-bottom: 4rem;
+    padding: 2rem 1.25rem;
   }
 
   .hero {
