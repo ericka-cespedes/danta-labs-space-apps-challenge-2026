@@ -6,6 +6,8 @@
 
 **NASA Space Apps Challenge 2026 | Costa Rica 🇨🇷**
 
+**[Visit the project website](https://dantalabsgame.vercel.app/)**
+
 ### About the Project
 
 Danta Labs is a six-member team from Costa Rica taking part in the [NASA Space Apps Challenge 2026](https://www.spaceappschallenge.org/). Our name comes from the danta (tapir), an animal native to Costa Rica, and reflects our connection to nature, science, space exploration, and creativity.
