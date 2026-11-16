@@ -146,11 +146,11 @@ function useNebulaParallax(pathname: string) {
   useEffect(() => {
     const root = document.documentElement
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const mobileViewport = window.matchMedia('(max-width: 760px)')
     let animationFrame = 0
 
     const clearPosition = () => {
       root.style.removeProperty('--nebula-parallax-y')
-      root.style.removeProperty('--nebula-parallax-rotation')
     }
 
     const updatePosition = () => {
@@ -166,13 +166,14 @@ function useNebulaParallax(pathname: string) {
         scrollRange > 0
           ? Math.min(Math.max(window.scrollY / scrollRange, 0), 1)
           : 0
-      const maxOffset = Math.min(window.innerHeight * 0.12, 144)
+      const maxOffset = mobileViewport.matches
+        ? Math.min(window.innerHeight * 0.42, 360)
+        : Math.min(window.innerHeight * 0.56, 500)
 
       root.style.setProperty(
         '--nebula-parallax-y',
         `${-Math.round(maxOffset * progress)}px`,
       )
-      root.style.setProperty('--nebula-parallax-rotation', `${progress * 4}deg`)
     }
 
     const schedulePositionUpdate = () => {
@@ -841,13 +842,17 @@ function App() {
         <a className="back-to-top" href="#top">
           Back to the Start
         </a>
-        <p className="image-credit">
-          Orion Nebula image:{' '}
-          <a href="https://science.nasa.gov/image-detail/orion-nebula-xlarge_web/">
-            NASA, ESA, M. Robberto (Space Telescope Science Institute/ESA), and
-            the Hubble Space Telescope Orion Treasury Project Team
+        <div className="site-footer__meta">
+          <a
+            className="site-footer__github"
+            href="https://github.com/ericka-cespedes/danta-labs-space-apps-challenge-2026"
+            rel="noreferrer"
+            target="_blank"
+          >
+            View on GitHub
           </a>
-        </p>
+          <p className="image-credit">AI-generated Background Image</p>
+        </div>
       </footer>
     </div>
   )

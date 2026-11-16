@@ -66,11 +66,11 @@ The team created the original project idea, game concept, and gameplay.
 
 ## NASA Data
 
-See [NASA_DATA.md](NASA_DATA.md) for the NASA sources used by the artifact catalog, image-source links, search resources, and Orion Nebula credit. The page uses APA 7th-edition formatting where the available metadata allows it. Verify source titles, publication dates, and image attribution or licensing before submission.
+See [NASA_DATA.md](NASA_DATA.md) for the NASA sources used by the artifact catalog, image-source links, and research resources. The project website's lunar-space background is AI-generated, not NASA imagery. The page uses APA 7th-edition formatting where the available metadata allows it. Verify source titles, publication dates, and image attribution or licensing before submission.
 
 ## Space Agency Partner Data and Other References
 
-See [NASA_SPACE_APPS_REFERENCES.md](NASA_SPACE_APPS_REFERENCES.md) for the Orion Nebula image credit, web-font references, and the website's main frameworks and development tools. `NASA_DATA.md` remains the NASA data and artifact-source list. Verify image attribution and reuse terms, and add any other confirmed partner resources, code, text, or media used by the team before submission.
+See [NASA_SPACE_APPS_REFERENCES.md](NASA_SPACE_APPS_REFERENCES.md) for the catalog image-source links, web-font references, and the website's main frameworks and development tools. `NASA_DATA.md` remains the NASA data and artifact-source list. Verify image attribution and reuse terms, and add any other confirmed partner resources, code, text, or media used by the team before submission.
 
 ## Submission Record
 
