@@ -135,6 +135,7 @@ main,
 .site-footer,
 .section-nav,
 .pending-page,
+.demo-page,
 .rulebook-page,
 .about-page,
 .contact-page,
@@ -201,6 +202,101 @@ main,
   max-width: 65ch;
   font-size: 1.15rem;
   line-height: 1.5;
+}
+
+.demo-page {
+  min-height: 65svh;
+  padding-block: clamp(2.5rem, 6vw, 4.5rem) 6rem;
+}
+
+.demo-page h1 {
+  margin-block: 2rem 1.25rem;
+  font-size: clamp(3rem, 6vw, 4.8rem);
+  line-height: 1;
+}
+
+.demo-page__intro {
+  max-width: 65ch;
+  font-size: 1.15rem;
+  line-height: 1.5;
+}
+
+.demo-page__content {
+  margin-top: 2rem;
+}
+
+.demo-page__video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background: var(--deep);
+}
+
+.demo-page__video iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.demo-page__actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.demo-page__guide {
+  max-width: 65ch;
+  margin-top: 4rem;
+}
+
+.demo-page__guide h2 {
+  margin-bottom: 1.25rem;
+  font-size: clamp(1.75rem, 3vw, 2.4rem);
+  line-height: 1.15;
+}
+
+.demo-page__guide ol {
+  display: grid;
+  gap: 1rem;
+  padding-left: 1.5rem;
+  list-style: decimal;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.demo-page__guide a {
+  color: var(--cyan);
+  text-underline-offset: 0.2em;
+}
+
+@media (min-width: 960px) {
+  .demo-page__content {
+    display: grid;
+    grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+    grid-template-areas:
+      'video guide'
+      'actions guide';
+    column-gap: clamp(2rem, 4vw, 4rem);
+    align-items: start;
+  }
+
+  .demo-page__video {
+    grid-area: video;
+  }
+
+  .demo-page__actions {
+    grid-area: actions;
+  }
+
+  .demo-page__guide {
+    grid-area: guide;
+    margin-top: 0;
+  }
 }
 
 .rulebook-page {
@@ -1200,6 +1296,7 @@ h2 {
   .site-footer,
   .section-nav,
   .pending-page,
+  .demo-page,
   .rulebook-page,
   .about-page,
   .contact-page,

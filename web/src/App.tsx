@@ -24,6 +24,7 @@ const sectionRoutes: { id: RouteId; label: string }[] = [
 
 const pages = [
   { path: '/', label: 'Home' },
+  { path: '/demo', label: 'Demo' },
   { path: '/game', label: 'How to Play' },
   { path: '/artifacts', label: 'Artifacts' },
   { path: '/about', label: 'About Us' },
@@ -658,6 +659,73 @@ function ArtifactDetailPage() {
   )
 }
 
+function DemoPage() {
+  return (
+    <section className="demo-page" aria-labelledby="page-title">
+      <Link className="action-link" to="/">Back to the Project</Link>
+      <h1 id="page-title">Digital Tabletop Demo</h1>
+      <p className="demo-page__intro">
+        See Artifacts of the Past in action! Watch our digital tabletop demo,
+        played using Tabletop Simulator on Steam. You can also download the
+        game file to explore it in Tabletop Simulator.
+      </p>
+      <div className="demo-page__content">
+        <div className="demo-page__video">
+          <iframe
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+            referrerPolicy="strict-origin-when-cross-origin"
+            src="https://www.youtube-nocookie.com/embed/5eNbvHmOBqE"
+            title="Artifacts of the Past — Digital Tabletop Game Demo"
+          />
+        </div>
+        <div className="demo-page__actions">
+          <a
+            className="action-pill action-pill--primary"
+            download
+            href={`${import.meta.env.BASE_URL}danta-labs-tabletop-simulator.json`}
+          >
+            Download Game File
+          </a>
+          <a
+            className="action-link"
+            href="https://youtu.be/5eNbvHmOBqE"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Watch on YouTube
+          </a>
+        </div>
+        <section className="demo-page__guide" aria-labelledby="demo-guide-title">
+          <h2 id="demo-guide-title">Try It in Tabletop Simulator</h2>
+          <ol>
+            <li>
+              Get and install{' '}
+              <a href="https://store.steampowered.com/app/286160/Tabletop_Simulator/" target="_blank" rel="noopener noreferrer">
+                Tabletop Simulator on Steam
+              </a>
+              . It is a paid game.
+            </li>
+            <li>
+              Download the game file and move it to the Tabletop Simulator{' '}
+              <strong>Mods\Workshop</strong> folder. On Windows, this is usually
+              in <strong>Documents\My Games\Tabletop Simulator</strong>. See the{' '}
+              <a href="https://kb.tabletopsimulator.com/getting-started/technical-info/#save-game-data-location" target="_blank" rel="noopener noreferrer">
+                file locations
+              </a>{' '}
+              for other systems.
+            </li>
+            <li>
+              Start a game in Tabletop Simulator, open <strong>Games → Workshop</strong>,
+              and load <strong>Space Table</strong>.
+            </li>
+          </ol>
+        </section>
+      </div>
+    </section>
+  )
+}
+
 function ContactPage() {
   return (
     <section className="contact-page" aria-labelledby="page-title">
@@ -750,6 +818,7 @@ function App() {
       <main className={isHome ? 'home-page' : undefined} id="main" tabIndex={-1}>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/demo" element={<DemoPage />} />
           <Route path="/game" element={<HowToPlayPage />} />
           <Route path="/artifacts" element={<ArtifactsPage />} />
           <Route path="/artifacts/:artifactId" element={<ArtifactDetailPage />} />
