@@ -18,7 +18,7 @@ The guide requires a public link to an English-language demo. Create either a vi
 
 **Video Demo:** `[ADD THE PUBLIC VIDEO OR SLIDE-DECK URL]`
 
-**PowerPoint Presentation**: `[ADD THE PPT URL]`
+**PowerPoint Presentation**: https://canva.link/qw365au9v1j9b46
 
 ### Final Project Link
 
