@@ -2,6 +2,12 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, Route, Routes, useLocation, useParams, useSearchParams } from 'react-router'
 import { artifactLocations, artifacts } from './data/artifacts'
 import type { Artifact } from './data/artifacts'
+import boardPhoto from './assets/making-of/board.jpeg'
+import digitalPrototypePhoto from './assets/making-of/digital-prototype.jpeg'
+import earlyPrototypePhoto from './assets/making-of/early-prototype.jpeg'
+import hackathonPhoto from './assets/making-of/hackathon.jpeg'
+import physicalPrototypePhoto from './assets/making-of/physical-prototype.jpeg'
+import playerBoardPhoto from './assets/making-of/player-board.jpeg'
 import './App.css'
 
 type RouteId = 'project' | 'play' | 'team'
@@ -27,6 +33,7 @@ const pages = [
   { path: '/demo', label: 'Demo' },
   { path: '/game', label: 'How to Play' },
   { path: '/artifacts', label: 'Artifacts' },
+  { path: '/making-of', label: 'Making Of' },
   { path: '/about', label: 'About Us' },
   { path: '/contact', label: 'Contact' },
 ]
@@ -324,6 +331,130 @@ function HomePage() {
         </ul>
       </section>
     </>
+  )
+}
+
+function MakingOfPage() {
+  return (
+    <article className="making-of-page" aria-labelledby="making-of-title">
+      <header className="making-of-intro">
+        <h1 id="making-of-title">From Scratch to Tabletop</h1>
+      </header>
+
+      <ol className="making-of-timeline">
+        <li className="making-of-step">
+          <span aria-hidden="true" className="making-of-step__number">01</span>
+          <div className="making-of-step__content">
+            <h2>A team takes on the challenge</h2>
+            <p>
+              At the NASA Space Apps Challenge 2026 on{' '}
+              <time dateTime="2026-11-14">November 14th, 2026</time>, our team
+              came together around the idea for Artifacts of the Past.
+            </p>
+          </div>
+          <figure className="making-of-photo">
+            <img
+              alt="Team members gathered around a table during the hackathon."
+              src={hackathonPhoto}
+            />
+            <figcaption>A moment from the hackathon.</figcaption>
+          </figure>
+        </li>
+
+        <li className="making-of-step">
+          <span aria-hidden="true" className="making-of-step__number">02</span>
+          <div className="making-of-step__content">
+            <h2>Our first board design</h2>
+            <p>
+              This digital illustration was our first drawing of how we wanted
+              the board to look. It became the visual starting point for the
+              physical prototype.
+            </p>
+          </div>
+          <figure className="making-of-photo">
+            <img
+              alt="Digital illustration of the Moon and Mars against a star field."
+              src={digitalPrototypePhoto}
+            />
+            <figcaption>The initial digital concept for the game.</figcaption>
+          </figure>
+        </li>
+
+        <li className="making-of-step">
+          <span aria-hidden="true" className="making-of-step__number">03</span>
+          <div className="making-of-step__content">
+            <h2>Our first paper prototype</h2>
+            <p>
+              The early draft was messy, with handwritten notes, rough spaces,
+              and game pieces spread across the board. It was an in-progress
+              version, not the finished game.
+            </p>
+          </div>
+          <figure className="making-of-photo">
+            <img
+              alt="Rough paper game board covered with handwritten notes and game pieces."
+              src={earlyPrototypePhoto}
+            />
+            <figcaption>The rough first draft, just as it was being worked out.</figcaption>
+          </figure>
+        </li>
+
+        <li className="making-of-step">
+          <span aria-hidden="true" className="making-of-step__number">04</span>
+          <div className="making-of-step__content">
+            <h2>We refined the boards</h2>
+            <p>
+              The shared board and the individual player boards show the design
+              taking shape, with the game’s spaces and resources laid out more
+              clearly.
+            </p>
+          </div>
+          <div aria-label="Board design iterations" className="making-of-gallery" role="group">
+            <figure className="making-of-photo">
+              <img
+                alt="Hand-drawn shared game board with a numbered path and play areas."
+                className="making-of-photo__rotated"
+                src={boardPhoto}
+              />
+              <figcaption>The shared game board.</figcaption>
+            </figure>
+            <figure className="making-of-photo">
+              <img
+                alt="Hand-drawn player board with resource tracks and a personal play area."
+                src={playerBoardPhoto}
+              />
+              <figcaption>A player board.</figcaption>
+            </figure>
+          </div>
+        </li>
+
+        <li className="making-of-step">
+          <span aria-hidden="true" className="making-of-step__number">05</span>
+          <div className="making-of-step__content">
+            <h2>The full physical prototype</h2>
+            <p>
+              The main board, player boards, and game pieces came together in a
+              complete tabletop prototype.
+            </p>
+          </div>
+          <figure className="making-of-photo">
+            <img
+              alt="The physical game prototype arranged on a table with its board, player boards, and pieces."
+              src={physicalPrototypePhoto}
+            />
+            <figcaption>Artifacts of the Past assembled on the table.</figcaption>
+          </figure>
+        </li>
+      </ol>
+
+      <footer className="making-of-outro">
+        <h2>To be continued...?</h2>
+        <p>
+          We’re not done exploring yet. The next turn for Artifacts of the Past
+          is still ahead—we plan to keep building the game, one idea at a time.
+        </p>
+      </footer>
+    </article>
   )
 }
 
@@ -822,6 +953,7 @@ function App() {
           <Route path="/game" element={<HowToPlayPage />} />
           <Route path="/artifacts" element={<ArtifactsPage />} />
           <Route path="/artifacts/:artifactId" element={<ArtifactDetailPage />} />
+          <Route path="/making-of" element={<MakingOfPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="*" element={<PendingPage title="Page Not Found" />} />
