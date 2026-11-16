@@ -282,11 +282,9 @@ NASA Space Science Data Coordinated Archive. (n.d.). *Mars*. https://nssdc.gsfc.
 
 NASA Space Science Data Coordinated Archive. (n.d.). *The Moon*. https://nssdc.gsfc.nasa.gov/planetary/planets/moonpage.html
 
-## Orion Nebula Image
+## AI-Generated Website Background
 
-The project website credits the image as: **NASA, ESA, M. Robberto (Space Telescope Science Institute/ESA), and the Hubble Space Telescope Orion Treasury Project Team.**
-
-National Aeronautics and Space Administration. (n.d.). *Orion Nebula* [Image]. NASA Science. https://science.nasa.gov/image-detail/orion-nebula-xlarge_web/
+The website's lunar-space background is AI-generated. It is not NASA imagery and is not included among the NASA data or artifact image sources.
 
 ## APA Style Note
 
